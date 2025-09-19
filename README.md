@@ -31,7 +31,7 @@ Bài tập lớn được thiết kế với các mục tiêu cụ thể sau:
 | STT | Assignment                         | Phạm vi/Chủ đề                  | Dataset                         | Google Colab Link                                                                 |
 |-----|---------------------------------|----------------------------------|---------------------------------|-----------------------------------------------------------------------------------|
 | 1   | BTL1                   | Tabular Data                              |[(https://www.kaggle.com/datasets/vashisthrahul13/laptop-price-dataset-most-detailed)](https://www.kaggle.com/datasets/deepcontractor/car-price-prediction-challenge/data)                     | [Link Colab 1](https://colab.research.google.com/drive/14T8EnBuv03wFB84R27dzaM14yeZ6Rlvk#scrollTo=yRcfFqpiEbAD)(https://colab.research.google.com/drive/xxxx)                      |
-| 2   | BTL2                   | Text data                                 | [(https://www.kaggle.com/datasets/sunilthite/text-document-classification-dataset](https://www.kaggle.com/datasets/sunilthite/text-document-classification-dataset))                    | Upcoming                      |
+| 2   | BTL2                   | Text data                                 | [Dataset2](https://www.kaggle.com/datasets/sunilthite/text-document-classification-dataset))                    | Upcoming                      |
 | 3   | BTL3                   | Image data                                | [[Dataset 3]](https://www.kaggle.com/datasets/zlatan599/garbage-dataset-classification)                     | Upcoming                      |
 | 4   | Extension              | (HMM / Bayesian Network / Conditional Random Field) | Upcoming | Upcoming
 ---
