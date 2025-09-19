@@ -23,7 +23,6 @@ Bài tập lớn được thiết kế với các mục tiêu cụ thể sau:
 - Rèn luyện kỹ năng triển khai mô hình học máy trên các loại dữ liệu khác nhau: **bảng, văn bản, và ảnh**.  
 - Phát triển khả năng **phân tích, so sánh, và đánh giá hiệu quả** của các mô hình học máy thông qua các chỉ số đo lường.  
 - Rèn luyện kỹ năng **lập trình, thử nghiệm, và tổ chức báo cáo khoa học**.  
-- **Bắt buộc:** Triển khai pipeline học máy truyền thống trên **ít nhất một loại dữ liệu mục tiêu**.  
 
 ---
 
