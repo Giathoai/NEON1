@@ -130,16 +130,16 @@ graph LR
 📁 NEON1-ML-Assignment/
 ├── 📂 BTL1-Tabular/
 │   ├── 📓 notebook.ipynb
-│   ├── 📊 data/
-│   └── 📈 results/
+│   ├── 📊 modules/
+│   └── 📈 features/
 ├── 📂 BTL2-Text/
 │   ├── 📓 notebook.ipynb
-│   ├── 📄 data/
-│   └── 📋 models/
+│   ├── 📊 modules/
+│   └── 📈 features/
 ├── 📂 BTL3-Image/
 │   ├── 📓 notebook.ipynb
-│   ├── 🖼️ data/
-│   └── 🤖 trained_models/
+│   ├── 📊 modules/
+│   └── 📈 features/
 └── 📂 Extension/
     └── 🧠 advanced_methods/
 ```
