@@ -34,7 +34,8 @@
 | **1** | **Trần Lê Gia Thoại** | `2313323` | thoai.trantlgt2610@hcmut.edu.vn |
 | **2** | **Bùi Hữu Lợi** | `2311972` | loi.bui2311972@hcmut.edu.vn |
 | **3** | **Hồ Đắc Minh Phương** | `2312738` | phuong.hodacminh@hcmut.edu.vn |
-| **4** | **Dương Hồ Nam** | `...` | ... |
+| **4** | **Dương Hồ Nam** | `2312153` | nam.duong0penguin@hcmut.edu.vn
+ |
 
 </div>
 
