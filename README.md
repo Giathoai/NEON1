@@ -1,47 +1,151 @@
-# 📘 Machine Learning Assignment - NEON1 Team
+# 🚀 Machine Learning Assignment - NEON1 Team
 
-## Thông tin Môn học
-- **Tên môn học:** Học máy (Machine Learning)
-- **Mã môn học:** CO3117
-- **Giảng viên hướng dẫn:** TS.Lê Thành Sách
+<div align="center">
 
----
+![Machine Learning](https://img.shields.io/badge/Machine_Learning-CO3117-blue?style=for-the-badge&logo=tensorflow&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3.8+-yellow?style=for-the-badge&logo=python&logoColor=white)
+![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-orange?style=for-the-badge&logo=jupyter&logoColor=white)
+![Status](https://img.shields.io/badge/Status-In_Progress-green?style=for-the-badge)
 
-## 👥 Thành viên Nhóm
-| STT | Họ và Tên        | MSSV       | Email        |
-|-----|------------------|------------|-----------------|
-| 1   | Trần Lê Gia Thoại   | 2313323   | thoai.trantlgt2610@hcmut.edu.vn     |
-| 2   | Bùi Hữu Lợi   | 2311972   | loi.bui2311972@hcmut.edu.vn      |
-| 3   | Hồ Đắc Minh Phương   | 2312738   | phuong.hodacminh@hcmut.edu.vn      |
-| 4 | Dương Hồ Nam              | ...        | ...             |
+### *Khám phá thế giới Machine Learning thông qua các bài tập thực hành*
+
+</div>
 
 ---
 
-### 🎯 Mục tiêu
-Bài tập lớn được thiết kế với các mục tiêu cụ thể sau:
-- Hiểu và áp dụng được quy trình **pipeline học máy truyền thống**, bao gồm: tiền xử lý dữ liệu, trích xuất đặc trưng, huấn luyện và đánh giá mô hình.  
-- Rèn luyện kỹ năng triển khai mô hình học máy trên các loại dữ liệu khác nhau: **bảng, văn bản, và ảnh**.  
-- Phát triển khả năng **phân tích, so sánh, và đánh giá hiệu quả** của các mô hình học máy thông qua các chỉ số đo lường.  
-- Rèn luyện kỹ năng **lập trình, thử nghiệm, và tổ chức báo cáo khoa học**.  
+## 📚 **Thông tin Môn học**
+
+<div align="center">
+
+| 🎓 **Môn học** | 🔢 **Mã môn** | 👨‍🏫 **Giảng viên** |
+|:-------------:|:------------:|:------------------:|
+| **Học máy (Machine Learning)** | **CO3117** | **TS. Lê Thành Sách** |
+
+</div>
 
 ---
 
-## 📂 Danh sách Bài Tập Lớn
-| STT | Assignment                         | Phạm vi/Chủ đề                  | Dataset                         | Open in Google Colab                                                                 |
-|-----|---------------------------------|----------------------------------|---------------------------------|-----------------------------------------------------------------------------------|
-| 1   | BTL1                   | Tabular Data                              |[[Tabular Data]](https://www.kaggle.com/datasets/deepcontractor/car-price-prediction-challenge/data)                     | [[Link Colab 1]](https://colab.research.google.com/drive/14T8EnBuv03wFB84R27dzaM14yeZ6Rlvk#scrollTo=yRcfFqpiEbAD)                      |
-| 2   | BTL2                   | Text Data                                 | [[Text Data]](https://www.kaggle.com/datasets/sunilthite/text-document-classification-dataset)                    | Upcoming                      |
-| 3   | BTL3                   | Image Data                                | [[Image Data]](https://www.kaggle.com/datasets/zlatan599/garbage-dataset-classification)                     | Upcoming                      |
-| 4   | Extension              | (HMM / Bayesian Network / Conditional Random Field) | Upcoming | Upcoming
+## 👥 **Đội ngũ NEON1**
+
+<div align="center">
+
+| 🌟 | 👤 **Họ và Tên** | 🆔 **MSSV** | 📧 **Email** |
+|:---:|:------------------|:----------:|:-------------|
+| **1** | **Trần Lê Gia Thoại** | `2313323` | thoai.trantlgt2610@hcmut.edu.vn |
+| **2** | **Bùi Hữu Lợi** | `2311972` | loi.bui2311972@hcmut.edu.vn |
+| **3** | **Hồ Đắc Minh Phương** | `2312738` | phuong.hodacminh@hcmut.edu.vn |
+| **4** | **Dương Hồ Nam** | `...` | ... |
+
+</div>
+
 ---
 
-## 📝 Hướng dẫn Sử dụng
-1. Mở link Google Colab tương ứng với bài tập lớn trong bảng trên.  
-2. Chạy lần lượt các cell trong notebook.  
-3. Thay đổi tham số đầu vào (nếu có) để kiểm tra các trường hợp khác nhau.  
+## 🎯 **Mục tiêu Dự án**
+
+<div align="center">
+
+```mermaid
+graph LR
+    A[📊 Data Processing] --> B[🔍 Feature Engineering]
+    B --> C[🤖 Model Training]
+    C --> D[📈 Evaluation]
+    D --> E[📋 Reporting]
+    
+    style A fill:#e1f5fe
+    style B fill:#f3e5f5
+    style C fill:#e8f5e8
+    style D fill:#fff3e0
+    style E fill:#fce4ec
+```
+
+</div>
+
+### 🌟 **Các mục tiêu chính:**
+
+> 🔹 **Pipeline học máy truyền thống**: Từ tiền xử lý đến đánh giá mô hình  
+> 🔹 **Multi-modal Data**: Xử lý dữ liệu bảng, văn bản và hình ảnh  
+> 🔹 **Model Comparison**: Phân tích và so sánh hiệu quả các mô hình  
+> 🔹 **Scientific Reporting**: Tổ chức báo cáo khoa học chuyên nghiệp  
 
 ---
 
-## 📌 Ghi chú
-- Vui lòng đảm bảo đã đăng nhập Google trước khi mở Colab.  
-- Các notebook có thể yêu cầu tải dữ liệu bổ sung, link sẽ được ghi rõ trong từng notebook.  
+## 📂 **Roadmap Bài Tập**
+
+<div align="center">
+
+### 🛤️ **Machine Learning Journey**
+
+</div>
+
+| 🎯 | **Assignment** | 📋 **Domain** | 📊 **Dataset** | 🚀 **Colab** | 📊 **Status** |
+|:---:|:---------------|:-------------|:--------------|:-------------|:-------------|
+| **1️⃣** | **BTL1 - Tabular Analysis** | `Tabular Data` | [🚗 Car Price Prediction](https://www.kaggle.com/datasets/deepcontractor/car-price-prediction-challenge/data) | [📓 Open Colab](https://colab.research.google.com/drive/14T8EnBuv03wFB84R27dzaM14yeZ6Rlvk#scrollTo=yRcfFqpiEbAD) | ✅ **Active** |
+| **2️⃣** | **BTL2 - Text Mining** | `Text Data` | [📄 Document Classification](https://www.kaggle.com/datasets/sunilthite/text-document-classification-dataset) | 🔜 **Coming Soon** | 🔄 **Upcoming** |
+| **3️⃣** | **BTL3 - Computer Vision** | `Image Data` | [🗑️ Garbage Classification](https://www.kaggle.com/datasets/zlatan599/garbage-dataset-classification) | 🔜 **Coming Soon** | 🔄 **Upcoming** |
+| **4️⃣** | **Advanced Extension** | `Advanced ML` | 🧠 *HMM/Bayesian/CRF* | 🔜 **Coming Soon** | 🔄 **Planning** |
+
+---
+
+## 🛠️ **Tech Stack**
+
+<div align="center">
+
+### **🔧 Tools & Technologies**
+
+![Python](https://img.shields.io/badge/Python-FFD43B?style=for-the-badge&logo=python&logoColor=blue)
+![Pandas](https://img.shields.io/badge/Pandas-2C2D72?style=for-the-badge&logo=pandas&logoColor=white)
+![NumPy](https://img.shields.io/badge/Numpy-777BB4?style=for-the-badge&logo=numpy&logoColor=white)
+![Scikit-Learn](https://img.shields.io/badge/scikit_learn-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white)
+![Matplotlib](https://img.shields.io/badge/Matplotlib-11557c?style=for-the-badge)
+![Seaborn](https://img.shields.io/badge/Seaborn-3776AB?style=for-the-badge)
+![Jupyter](https://img.shields.io/badge/Jupyter-F37626.svg?&style=for-the-badge&logo=Jupyter&logoColor=white)
+![Google Colab](https://img.shields.io/badge/Colab-F9AB00?style=for-the-badge&logo=googlecolab&color=525252)
+
+</div>
+
+---
+
+## 🚀 **Quick Start Guide**
+
+### 📋 **Prerequisites**
+```bash
+✅ Google Account (for Colab access)
+✅ Stable internet connection
+✅ Basic knowledge of Python & ML
+```
+
+### 🎯 **Getting Started**
+
+1. **📌 Choose your assignment** from the roadmap above
+2. **🔗 Click the Colab link** to open the notebook
+3. **▶️ Run cells sequentially** following the instructions
+4. **⚙️ Experiment with parameters** to explore different scenarios
+5. **📈 Analyze results** and compare model performance
+
+---
+
+## 📊 **Project Structure**
+
+```
+📁 NEON1-ML-Assignment/
+├── 📂 BTL1-Tabular/
+│   ├── 📓 notebook.ipynb
+│   ├── 📊 data/
+│   └── 📈 results/
+├── 📂 BTL2-Text/
+│   ├── 📓 notebook.ipynb
+│   ├── 📄 data/
+│   └── 📋 models/
+├── 📂 BTL3-Image/
+│   ├── 📓 notebook.ipynb
+│   ├── 🖼️ data/
+│   └── 🤖 trained_models/
+└── 📂 Extension/
+    └── 🧠 advanced_methods/
+```
+
+---
+
+## 🎨 **Features & Highlights**
+
+<div align="center">
