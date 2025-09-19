@@ -25,7 +25,7 @@
 
 ---
 
-## 👥 **Đội ngũ NEON1**
+## 👥 **Thành viên nhóm NEON1**
 
 <div align="center">
 
@@ -40,7 +40,7 @@
 
 ---
 
-## 🎯 **Mục tiêu Dự án**
+## 🎯 **Mục tiêu**
 
 <div align="center">
 
