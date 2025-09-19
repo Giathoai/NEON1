@@ -1,37 +1,39 @@
-# 📘 Báo cáo Bài Tập Lớn
+# 📘 Machine Learning Assignment - NEON1 Team
 
 ## Thông tin Môn học
-- **Tên môn học:** [Tên môn học]
-- **Mã môn học:** [Mã môn học]
-- **Giảng viên hướng dẫn:** [Tên giảng viên]
+- **Tên môn học:** Học máy (Machine Learning)
+- **Mã môn học:** CO3117
+- **Giảng viên hướng dẫn:** TS.Lê Thành Sách
 
 ---
 
 ## 👥 Thành viên Nhóm
-| STT | Họ và Tên        | MSSV       | Vai trò         |
+| STT | Họ và Tên        | MSSV       | Email        |
 |-----|------------------|------------|-----------------|
-| 1   | [Họ Tên SV 1]   | [MSSV 1]   | Nhóm trưởng     |
-| 2   | [Họ Tên SV 2]   | [MSSV 2]   | Thành viên      |
-| 3   | [Họ Tên SV 3]   | [MSSV 3]   | Thành viên      |
-| ... | ...              | ...        | ...             |
+| 1   | Trần Lê Gia Thoại   | 2313323   | thoai.trantlgt2610@hcmut.edu.vn     |
+| 2   | Bùi Hữu Lợi   | [MSSV 2]   | Thành viên      |
+| 3   | Hồ Đắc Minh Phương   | [MSSV 3]   | Thành viên      |
+| 4 | Dương Hồ Nam              | ...        | ...             |
 
 ---
 
-## 📖 Thông tin Bài Tập Lớn
-- **Chủ đề:** [Tên đề tài chính]
-- **Mục tiêu:** [Mô tả ngắn gọn mục tiêu chính của bài tập lớn]
-- **Ngôn ngữ / Công cụ:** Python, Google Colab, [các công cụ khác nếu có]
-- **Kết quả mong đợi:** [Ví dụ: xây dựng mô hình ML, ứng dụng demo, báo cáo phân tích, v.v.]
+### 🎯 Mục tiêu
+Bài tập lớn được thiết kế với các mục tiêu cụ thể sau:
+- Hiểu và áp dụng được quy trình **pipeline học máy truyền thống**, bao gồm: tiền xử lý dữ liệu, trích xuất đặc trưng, huấn luyện và đánh giá mô hình.  
+- Rèn luyện kỹ năng triển khai mô hình học máy trên các loại dữ liệu khác nhau: **bảng, văn bản, và ảnh**.  
+- Phát triển khả năng **phân tích, so sánh, và đánh giá hiệu quả** của các mô hình học máy thông qua các chỉ số đo lường.  
+- Rèn luyện kỹ năng **lập trình, thử nghiệm, và tổ chức báo cáo khoa học**.  
+- **Bắt buộc:** Triển khai pipeline học máy truyền thống trên **ít nhất một loại dữ liệu mục tiêu**.  
 
 ---
 
 ## 📂 Danh sách Bài Tập Lớn
-| STT | Tên BTL                         | Phạm vi/Chủ đề                  | Google Colab Link                                                                 |
-|-----|---------------------------------|----------------------------------|-----------------------------------------------------------------------------------|
-| 1   | [Tên BTL 1]                    | [Phạm vi 1]                     | [Link Colab 1](https://colab.research.google.com/drive/xxxx)                      |
-| 2   | [Tên BTL 2]                    | [Phạm vi 2]                     | [Link Colab 2](https://colab.research.google.com/drive/yyyy)                      |
-| 3   | [Tên BTL 3]                    | [Phạm vi 3]                     | [Link Colab 3](https://colab.research.google.com/drive/zzzz)                      |
-
+| STT | Assignment                         | Phạm vi/Chủ đề                  | Dataset                         | Google Colab Link                                                                 |
+|-----|---------------------------------|----------------------------------|---------------------------------|-----------------------------------------------------------------------------------|
+| 1   | BTL1                   | Tabular Data                              |(https://www.kaggle.com/datasets/vashisthrahul13/laptop-price-dataset-most-detailed)                     | [[Link Colab 1]](https://colab.research.google.com/drive/14T8EnBuv03wFB84R27dzaM14yeZ6Rlvk#scrollTo=yRcfFqpiEbAD)(https://colab.research.google.com/drive/xxxx)                      |
+| 2   | BTL2                   | Text data                                 | (https://www.kaggle.com/datasets/sunilthite/text-document-classification-dataset)                    | [Link Colab 2](https://colab.research.google.com/drive/yyyy)                      |
+| 3   | BTL3                   | Image data                                | [Dataset 3]                     | [Link Colab 3](https://colab.research.google.com/drive/zzzz)                      |
+| 4   | Extension              | (HMM / Bayesian Network / Conditional Random Field) | 
 ---
 
 ## 📝 Hướng dẫn Sử dụng
