@@ -11,8 +11,8 @@
 | STT | Họ và Tên        | MSSV       | Email        |
 |-----|------------------|------------|-----------------|
 | 1   | Trần Lê Gia Thoại   | 2313323   | thoai.trantlgt2610@hcmut.edu.vn     |
-| 2   | Bùi Hữu Lợi   | [MSSV 2]   | Thành viên      |
-| 3   | Hồ Đắc Minh Phương   | [MSSV 3]   | Thành viên      |
+| 2   | Bùi Hữu Lợi   | 2311972   | loi.bui2311972@hcmut.edu.vn      |
+| 3   | Hồ Đắc Minh Phương   | 2312738   | phuong.hodacminh@hcmut.edu.vn      |
 | 4 | Dương Hồ Nam              | ...        | ...             |
 
 ---
