@@ -83,7 +83,7 @@ graph LR
 | **1️⃣** | **BTL1 - Tabular Analysis** | `Tabular Data` | [🚗 Car Price Prediction](https://www.kaggle.com/datasets/deepcontractor/car-price-prediction-challenge/data) | [📓 Open Colab](https://colab.research.google.com/drive/14T8EnBuv03wFB84R27dzaM14yeZ6Rlvk#scrollTo=yRcfFqpiEbAD) | ✅ **Active** |
 | **2️⃣** | **BTL2 - Text Mining** | `Text Data` | [📄 Document Classification](https://www.kaggle.com/datasets/sunilthite/text-document-classification-dataset) | [📓 Open Colab](https://colab.research.google.com/drive/17T3-CGmhmVrcZi6XFuk7N1tjHpLhnA72?usp=sharing) | ✅ **Active** |
 | **3️⃣** | **BTL3 - Computer Vision** | `Image Data` | [🗑️ Garbage Classification](https://www.kaggle.com/datasets/zlatan599/garbage-dataset-classification) | [📓 Open Colab](https://colab.research.google.com/drive/1rFp4BfnUCGvaKIKmisX-6sq1pir53Tlj?usp=sharing) | ✅ **Active** |
-| **4️⃣** | **Advanced Extension** | `Advanced ML` | 🧠 *HMM/Bayesian/CRF* | 🔜 **Coming Soon** | 🔄 **Planning** |
+| **4️⃣** | **Advanced Extension** | `Advanced ML` | 🧠 *HMM/Bayesian/CRF* | [📓 Open Colab](https://colab.research.google.com/drive/11wegVStkcjXz2ififKvqCzdX9TkPBHj7?usp=sharing) | ✅ **Active** |
 
 ---
 
