@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chi Tiết Bài Tập - NEON1</title>
+    <title>Chi Tiết Bài Tập Lớn Số 2 - NEON1</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
@@ -44,6 +44,55 @@
             margin-top: 30px;
             border: 1px solid #333;
         }
+
+        .section {
+            margin-bottom: 40px;
+            padding: 20px;
+            border-left: 3px solid var(--neon-blue);
+            background: rgba(0, 243, 255, 0.05);
+        }
+
+        .subsection {
+            margin-bottom: 25px;
+            padding: 15px;
+            border-left: 2px solid #00d4e6;
+            background: rgba(0, 243, 255, 0.03);
+        }
+
+        .output-placeholder {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px dashed var(--neon-blue);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            text-align: center;
+            color: #888;
+        }
+
+        .output-placeholder::before {
+            content: "📊 Output từ Notebook: ";
+            font-weight: bold;
+        }
+
+        .comparison-table {
+            overflow-x: auto;
+        }
+
+        .comparison-table table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .comparison-table th, .comparison-table td {
+            border: 1px solid #444;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .comparison-table th {
+            background: rgba(0, 243, 255, 0.1);
+        }
     </style>
 </head>
 <body>
@@ -51,17 +100,836 @@
     <div class="container">
         <a href="../index.html" class="btn-back"><i class="fas fa-arrow-left"></i> Quay lại Dashboard</a>
 
-        <div class="content-box text-center">
-            <h1 class="text-warning mb-4">🚧 Đang Xây Dựng 🚧</h1>
-            <h2 class="mb-3">Chi Tiết Bài Tập Lớn</h2>
-            <p class="lead">Nội dung báo cáo chi tiết và phân tích dữ liệu đang được cập nhật...</p>
+        <div class="content-box">
+            <h1 class="text-warning mb-4">Chi Tiết Bài Tập Lớn Số 2: Pipeline Phân Loại Tài Liệu Văn Bản</h1>
+            <p class="lead">Báo cáo chi tiết về pipeline phân loại tài liệu văn bản linh hoạt và mô-đun, tích hợp cả phương pháp truyền thống (Bag-of-Words và TF-IDF) và hiện đại (GloVe, DistilBERT). Sử dụng bộ dữ liệu Text Document Classification Dataset từ Kaggle (2.225 tài liệu, 5 lớp). Báo cáo tập trung vào phân tích, kết quả và so sánh các phương pháp.</p>
             
             <hr class="my-4 border-secondary">
-            
-            <p>Trong lúc chờ đợi, bạn có thể xem code trực tiếp tại:</p>
-            <a href="#" class="btn btn-outline-light"><i class="fab fa-google"></i> Mở Google Colab</a>
+
+            <!-- Phần 1: Giới thiệu -->
+            <div class="section">
+                <h2 class="text-neon-blue"><i class="fas fa-info-circle"></i> 1. Giới thiệu</h2>
+                <p>Pipeline này được thiết kế để dễ dàng cấu hình các bước tiền xử lý văn bản (như loại bỏ từ dừng, token hóa, padding), lựa chọn phương pháp nhúng đặc trưng và mô hình phân loại. Mục tiêu là so sánh hiệu suất giữa các phương pháp truyền thống (BoW, TF-IDF) và hiện đại (GloVe, DistilBERT) trên bộ dữ liệu gồm 2.225 tài liệu văn bản được phân loại thành 5 lớp (ví dụ: giáo dục, thể thao, chính trị, v.v.).</p>
+                <p>Bộ dữ liệu được tải từ <a href="https://www.kaggle.com/datasets/sunilthite/text-document-classification-dataset" target="_blank">Kaggle</a> bởi Sunil Thite, phù hợp để đánh giá các kỹ thuật biểu diễn văn bản và thuật toán phân loại.</p>
+                <p>Mục tiêu chính:</p>
+                <ul>
+                    <li>Khám phá và tiền xử lý dữ liệu để hiểu cấu trúc và phân bố.</li>
+                    <li>Xây dựng và huấn luyện mô hình sử dụng pipeline linh hoạt.</li>
+                    <li>Đánh giá và so sánh hiệu suất qua các chỉ số như accuracy và F1-macro.</li>
+                </ul>
+                <p>Pipeline được cấu trúc theo các bước sau: Tải dữ liệu → EDA → Tiền xử lý → Chia train-test → Trích xuất đặc trưng & huấn luyện (truyền thống và hiện đại) → Kết luận.</p>
+            </div>
+
+            <!-- Phần 2: Tải và Khám phá Dữ liệu -->
+            <div class="section">
+                <h2 class="text-neon-blue"><i class="fas fa-download"></i> 2. Tải Dữ liệu và Phân tích Ban đầu</h2>
+                <div class="subsection">
+                    <h3>2.1: Tải Bộ Dữ liệu</h3>
+                    <p>Bộ dữ liệu được tải dưới dạng file CSV, bao gồm cột văn bản (text) và nhãn (label). Hình dạng dữ liệu: 2.225 mẫu, 2 cột. Phân bố nhãn cho thấy sự cân bằng tương đối giữa các lớp, giúp tránh bias trong huấn luyện.</p>
+                    
+                    <!-- Chỗ chèn output -->
+                    <div class="output-placeholder" id="load-overview">
+                        <h6 class="mb-2">Dataset shape: <span class="badge bg-info">(2225, 2)</span></h6>
+                        <h6 class="mt-3 mb-2">Four first rows of dataset:</h6>
+                        <div class="table-responsive">
+                            <table class="table table-dark table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Index</th>
+                                        <th style="max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Text (Snippet)</th>
+                                        <th>Label</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>0</td><td>Budget to set scene for election\n\nGordon B...</td><td>0</td></tr>
+                                    <tr><td>1</td><td>Army chiefs in regiment decision\n\nMilitar...</td><td>0</td></tr>
+                                    <tr><td>2</td><td>Howard denies split over ID cards\n\nMichae...</td><td>0</td></tr>
+                                    <tr><td>3</td><td>Observers to monitor UK election\n\nMiniste...</td><td>0</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <h6 class="mt-3 mb-2">Label distribution:</h6>
+                        <div class="table-responsive">
+                            <table class="table table-dark table-sm">
+                                <thead>
+                                    <tr><th>Label</th><th>Count</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>1</td><td>511</td></tr>
+                                    <tr><td>4</td><td>510</td></tr>
+                                    <tr><td>0</td><td>417</td></tr>
+                                    <tr><td>2</td><td>401</td></tr>
+                                    <tr><td>3</td><td>386</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <small class="text-muted">Name: count, dtype: int64</small>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>2.2: Phân tích Khám phá Dữ liệu (EDA)</h3>
+                    <p>EDA giúp hiểu rõ đặc điểm dữ liệu, bao gồm độ dài văn bản, từ phổ biến và phân bố lớp. Điều này hướng dẫn các bước tiền xử lý và trích xuất đặc trưng sau này.</p>
+                    
+                    <div class="subsection">
+                        <h4>2.2.1: Thống kê Độ dài Văn bản</h4>
+                        <p>Tính số từ cho mỗi tài liệu sau khi làm sạch cơ bản (chuyển chữ thường, loại bỏ dấu câu). Thống kê mô tả cho thấy độ dài trung bình khoảng [giá trị từ output], với phân bố đa dạng giúp xác định nhu cầu padding cho mô hình nhúng.</p>
+                        
+                        <!-- Chỗ chèn output -->
+                        <div class="output-placeholder" id="word-count-stats">
+                            <h6 class="mb-2 text-info">Thống kê mô tả độ dài văn bản (Word Count Statistics):</h6>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>Thống kê</th>
+                                            <th>Giá trị</th>
+                                        </tr>
+                                    </thead>
+                                        <tbody>
+                                            <tr><td>Count</td><td>2225.000000</td></tr>
+                                            <tr><td>Mean</td><td>382.484494</td></tr>
+                                            <tr><td>Std</td><td>236.797106</td></tr>
+                                            <tr><td>Min</td><td>89.000000</td></tr>
+                                            <tr><td>25%</td><td>245.000000</td></tr>
+                                            <tr><td>50% (Median)</td><td>330.000000</td></tr>
+                                            <tr><td>75%</td><td>469.000000</td></tr>
+                                            <tr><td>Max</td><td>4416.000000</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                
+                                <hr class="my-3 border-secondary">
+                                
+                                <h6 class="mb-2 text-info">Histogram phân bố độ dài văn bản:</h6>
+                                <div class="text-center">
+                                    <img src="../images/word_count_histogram.png" alt="Histogram phân bố độ dài văn bản" class="img-fluid rounded mx-auto d-block" style="max-height: 400px; width: auto;">
+                                    <small class="mt-3 mb-2">Phân bố độ dài văn bản từ 89 đến 4416 từ, với trung bình 382 từ.</small>
+                                </div>
+                        </div>
+                    </div>
+                    
+                    <div class="subsection">
+                        <h4>2.2.2: Tần suất Từ (Từ Phổ biến Nhất)</h4>
+                        <p>Xác định 20 từ phổ biến nhất sau tiền xử lý đơn giản, giúp nhận diện các từ khóa đại diện cho chủ đề. Word cloud cung cấp cái nhìn trực quan về mật độ từ.</p>
+                        
+                        <!-- Chỗ chèn output -->
+                        <div class="output-placeholder" id="word-frequency">
+                            <h6 class="mb-2 text-info">Top 20 từ phổ biến nhất (Word Frequency):</h6>
+                            <div class="table-responsive">
+                                <table class="table table-dark table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>Xếp hạng</th>
+                                            <th>Từ</th>
+                                            <th>Tần suất</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td>1</td><td>the</td><td>52603</td></tr>
+                                        <tr><td>2</td><td>to</td><td>25002</td></tr>
+                                        <tr><td>3</td><td>of</td><td>19966</td></tr>
+                                        <tr><td>4</td><td>and</td><td>18573</td></tr>
+                                        <tr><td>5</td><td>a</td><td>18254</td></tr>
+                                        <tr><td>6</td><td>in</td><td>17629</td></tr>
+                                        <tr><td>7</td><td>for</td><td>8918</td></tr>
+                                        <tr><td>8</td><td>is</td><td>8554</td></tr>
+                                        <tr><td>9</td><td>that</td><td>8053</td></tr>
+                                        <tr><td>10</td><td>on</td><td>7536</td></tr>
+                                        <tr><td>11</td><td>said</td><td>7253</td></tr>
+                                        <tr><td>12</td><td>it</td><td>7008</td></tr>
+                                        <tr><td>13</td><td>was</td><td>6028</td></tr>
+                                        <tr><td>14</td><td>be</td><td>5800</td></tr>
+                                        <tr><td>15</td><td>he</td><td>5782</td></tr>
+                                        <tr><td>16</td><td>with</td><td>5343</td></tr>
+                                        <tr><td>17</td><td>as</td><td>4979</td></tr>
+                                        <tr><td>18</td><td>has</td><td>4955</td></tr>
+                                        <tr><td>19</td><td>have</td><td>4750</td></tr>
+                                        <tr><td>20</td><td>at</td><td>4618</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <hr class="my-3 border-secondary">
+                            
+                            <h6 class="mb-2 text-info">Biểu đồ thanh Top 20 từ phổ biến:</h6>
+                            <div class="text-center">
+                                <img src="../images/top_frequent_words.png" alt="Biểu đồ thanh top 20 từ phổ biến" class="img-fluid rounded mx-auto d-block" style="max-height: 400px; width: auto;">
+                                <small class="mt-3 mb-2">Biểu đồ hiển thị tần suất của 20 từ phổ biến nhất, với 'the' dẫn đầu ở 52.603 lần.</small>
+                            </div>
+                            
+                            <hr class="my-3 border-secondary">
+                            
+                            <h6 class="mb-2 text-info">Word Cloud:</h6>
+                            <div class="text-center">
+                                <img src="../images/word_cloud.png" alt="Word Cloud của các từ phổ biến" class="img-fluid rounded mx-auto d-block" style="max-height: 500px; width: auto;">
+                                <small class="mt-3 mb-2">Word cloud trực quan hóa mật độ từ, nơi kích thước từ tỷ lệ với tần suất xuất hiện.</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="subsection">
+                        <h4>2.2.3: Tóm tắt EDA</h4>
+                        <p>Dữ liệu có độ dài văn bản biến thiên từ ngắn đến trung bình, với các từ phổ biến liên quan đến chủ đề chung (như "the", "and"). Không có vấn đề lớn về mất cân bằng lớp, nhưng cần loại bỏ stopwords để cải thiện chất lượng đặc trưng.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phần 3: Tiền xử lý Dữ liệu -->
+            <div class="section">
+                <h2 class="text-neon-blue"><i class="fas fa-cogs"></i> 3. Tiền Xử lý Dữ liệu</h2>
+                <p>Áp dụng các bước làm sạch: chuyển chữ thường, loại bỏ dấu câu và stopwords tiếng Anh, token hóa. Chuyển nhãn số thành tên mô tả để dễ diễn giải. Kết quả lưu vào cột mới, đảm bảo dữ liệu sạch cho các bước sau.</p>
+                
+                <!-- Chỗ chèn output -->
+                <div class="output-placeholder" id="preprocessing-sample">
+                    <h6 class="mb-2 text-info">Ví dụ văn bản sau tiền xử lý (Processed Text - 5 mẫu đầu):</h6>
+                    <div class="table-responsive">
+                        <table class="table table-dark table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Index</th>
+                                    <th>Processed Text (Snippet)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>0</td><td>budget set scene election gordon brown seek pu...</td></tr>
+                                <tr><td>1</td><td>army chiefs regiments decision military chiefs...</td></tr>
+                                <tr><td>2</td><td>howard denies split id cards michael howard de...</td></tr>
+                                <tr><td>3</td><td>observers monitor uk election ministers invite...</td></tr>
+                                <tr><td>4</td><td>kilroy names election seat target show host ro...</td></tr>
+                            </tbody>
+                        </table>
+                        <small class="mt-3 mb-2">Name: Processed_text, dtype: object. Các văn bản đã được token hóa, chuyển chữ thường, loại bỏ dấu câu và stopwords.</small>
+                    </div>
+                    
+                    <hr class="my-3 border-secondary">
+                    
+                    <h6 class="mb-2 text-info">Nhãn mô tả (Label Names - 5 mẫu đầu):</h6>
+                    <div class="table-responsive">
+                        <table class="table table-dark table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Index</th>
+                                    <th>Label Name</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>0</td><td>politics</td></tr>
+                                <tr><td>1</td><td>politics</td></tr>
+                                <tr><td>2</td><td>politics</td></tr>
+                                <tr><td>3</td><td>politics</td></tr>
+                                <tr><td>4</td><td>politics</td></tr>
+                            </tbody>
+                        </table>
+                        <small class="mt-3 mb-2">Name: Label_name, dtype: object. Nhãn số đã được map thành tên mô tả (ví dụ: 0 → politics).</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phần 4: Chia Train-Test -->
+            <div class="section">
+                <h2 class="text-neon-blue"><i class="fas fa-cut"></i> 4. Chia Tập Huấn luyện và Kiểm tra</h2>
+                <p>Trộn ngẫu nhiên dữ liệu và chia 80/20 (train/test). Kiểm tra phân bố nhãn ở cả hai tập để đảm bảo tính đại diện. Tập train: 2.000 mẫu, test: 225 mẫu.</p>
+                
+                <!-- Chỗ chèn output -->
+                <div class="output-placeholder" id="split-overview">
+                    <h6 class="mb-2 text-info">Tổng quan chia Train-Test:</h6>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="alert alert-dark d-flex justify-content-between align-items-center">
+                                <span><i class="fas fa-book-open me-2"></i> Training Samples:</span>
+                                <span class="badge bg-success fs-6">2000</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="alert alert-dark d-flex justify-content-between align-items-center">
+                                <span><i class="fas fa-clipboard-list me-2"></i> Testing Samples:</span>
+                                <span class="badge bg-warning fs-6">225</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <hr class="my-3 border-secondary">
+                    
+                    <h6 class="mb-2 text-info">Phân bố nhãn (Train - Số Label):</h6>
+                    <div class="table-responsive">
+                        <table class="table table-dark table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Label</th>
+                                    <th>Count</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>0 (Politics)</td><td>381</td></tr>
+                                <tr><td>1 (Sport)</td><td>465</td></tr>
+                                <tr><td>2 (Tech)</td><td>357</td></tr>
+                                <tr><td>3 (Entertainment)</td><td>342</td></tr>
+                                <tr><td>4 (Business)</td><td>455</td></tr>
+                            </tbody>
+                        </table>
+                        <small class="mt-3 mb-2">Name: count, dtype: int64. Phân bố tương đối cân bằng, với Sport và Business chiếm tỷ lệ cao hơn.</small>
+                    </div>
+                    
+                    <h6 class="mb-2 text-info">Phân bố nhãn theo tên (Train):</h6>
+                    <div class="table-responsive">
+                        <table class="table table-dark table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Label Name</th>
+                                    <th>Count</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>sport</td><td>465</td></tr>
+                                <tr><td>business</td><td>455</td></tr>
+                                <tr><td>politics</td><td>381</td></tr>
+                                <tr><td>tech</td><td>357</td></tr>
+                                <tr><td>entertainment</td><td>342</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <hr class="my-3 border-secondary">
+                    
+                    <h6 class="mb-2 text-info">Phân bố nhãn (Test - Số Label):</h6>
+                    <div class="table-responsive">
+                        <table class="table table-dark table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Label</th>
+                                    <th>Count</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>0 (Politics)</td><td>36</td></tr>
+                                <tr><td>1 (Sport)</td><td>46</td></tr>
+                                <tr><td>2 (Tech)</td><td>44</td></tr>
+                                <tr><td>3 (Entertainment)</td><td>44</td></tr>
+                                <tr><td>4 (Business)</td><td>55</td></tr>
+                            </tbody>
+                        </table>
+                        <small class="mt-3 mb-2">Name: count, dtype: int64. Tỷ lệ tương tự train, đảm bảo đánh giá công bằng.</small>
+                    </div>
+                    
+                    <h6 class="mb-2 text-info">Phân bố nhãn theo tên (Test):</h6>
+                    <div class="table-responsive">
+                        <table class="table table-dark table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Label Name</th>
+                                    <th>Count</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>business</td><td>55</td></tr>
+                                <tr><td>sport</td><td>46</td></tr>
+                                <tr><td>tech</td><td>44</td></tr>
+                                <tr><td>entertainment</td><td>44</td></tr>
+                                <tr><td>politics</td><td>36</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phần 5: Phương pháp Truyền thống -->
+            <div class="section">
+                <h2 class="text-neon-blue"><i class="fas fa-cube"></i> 5. Trích xuất Đặc trưng và Huấn luyện Mô hình (Phương pháp Truyền thống)</h2>
+                <p>Sử dụng pipeline kết hợp vectorizer (BoW với CountVectorizer, TF-IDF với TfidfVectorizer - xem xét unigram và bigram) và classifier (Naive Bayes, Logistic Regression, SVM tuyến tính). Điều này cho phép so sánh trực tiếp các đặc trưng tĩnh.</p>
+                
+                <div class="subsection">
+                    <h3>5.1: Định nghĩa Pipeline</h3>
+                    <p>Các pipeline được xây dựng để tự động hóa tiền xử lý + trích xuất đặc trưng + huấn luyện, đảm bảo tính nhất quán.</p>
+                </div>
+                
+                <div class="subsection">
+                    <h3>5.2: Huấn luyện và Đánh giá Mô hình</h3>
+                    <p>Huấn luyện trên tập train, dự đoán trên test. Tất cả mô hình đạt accuracy cao (trên 95%), cho thấy dữ liệu dễ phân loại.</p>
+                    
+                    <!-- Chỗ chèn output -->
+                    <div class="output-placeholder" id="traditional-results">
+                        <h6 class="mb-3 text-info">Kết quả Huấn luyện và Đánh giá Mô hình Truyền thống (Classification Reports):</h6>
+                        <p class="mt-3 mb-2">Tất cả mô hình đạt accuracy cao (>96%), với TF-IDF + LR/SVM dẫn đầu ở 97.78%. Các chỉ số precision, recall, F1-score được tính cho từng lớp (0: Politics, 1: Sport, 2: Tech, 3: Entertainment, 4: Business).</p>
+                        
+                        <!-- BoW_NB -->
+                        <div class="card mb-3 border-secondary">
+                            <div class="card-header bg-dark d-flex justify-content-between align-items-center">
+                                <span><i class="fas fa-cube me-2 text-info"></i>BoW + Naive Bayes</span>
+                                <span class="badge bg-success">Accuracy: 96.89%</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-dark table-sm">
+                                        <thead>
+                                            <tr>
+                                                <th>Class</th>
+                                                <th>Precision</th>
+                                                <th>Recall</th>
+                                                <th>F1-Score</th>
+                                                <th>Support</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr><td>0 (Politics)</td><td>0.92</td><td>1.00</td><td>0.96</td><td>36</td></tr>
+                                            <tr><td>1 (Sport)</td><td>1.00</td><td>1.00</td><td>1.00</td><td>46</td></tr>
+                                            <tr><td>2 (Tech)</td><td>0.94</td><td>1.00</td><td>0.97</td><td>44</td></tr>
+                                            <tr><td>3 (Entertainment)</td><td>1.00</td><td>0.91</td><td>0.95</td><td>44</td></tr>
+                                            <tr><td>4 (Business)</td><td>0.98</td><td>0.95</td><td>0.96</td><td>55</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-md-4"><small class="mt-3 mb-2">Macro Avg: P=0.97, R=0.97, F1=0.97</small></div>
+                                    <div class="col-md-4"><small class="mt-3 mb-2">Weighted Avg: P=0.97, R=0.97, F1=0.97</small></div>
+                                    <div class="col-md-4"><small class="mt-3 mb-2">Support: 225</small></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- BoW_LR -->
+                        <div class="card mb-3 border-secondary">
+                            <div class="card-header bg-dark d-flex justify-content-between align-items-center">
+                                <span><i class="fas fa-cube me-2 text-info"></i>BoW + Logistic Regression</span>
+                                <span class="badge bg-success">Accuracy: 96.44%</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-dark table-sm">
+                                        <thead>
+                                            <tr>
+                                                <th>Class</th>
+                                                <th>Precision</th>
+                                                <th>Recall</th>
+                                                <th>F1-Score</th>
+                                                <th>Support</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr><td>0 (Politics)</td><td>0.92</td><td>0.94</td><td>0.93</td><td>36</td></tr>
+                                            <tr><td>1 (Sport)</td><td>0.98</td><td>1.00</td><td>0.99</td><td>46</td></tr>
+                                            <tr><td>2 (Tech)</td><td>0.96</td><td>1.00</td><td>0.98</td><td>44</td></tr>
+                                            <tr><td>3 (Entertainment)</td><td>1.00</td><td>0.93</td><td>0.96</td><td>44</td></tr>
+                                            <tr><td>4 (Business)</td><td>0.96</td><td>0.95</td><td>0.95</td><td>55</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-md-4"><small class="mt-3 mb-2">Macro Avg: P=0.96, R=0.96, F1=0.96</small></div>
+                                    <div class="col-md-4"><small class="mt-3 mb-2d">Weighted Avg: P=0.97, R=0.96, F1=0.96</small></div>
+                                    <div class="col-md-4"><small class="mt-3 mb-2">Support: 225</small></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- BoW_SVM -->
+                        <div class="card mb-3 border-secondary">
+                            <div class="card-header bg-dark d-flex justify-content-between align-items-center">
+                                <span><i class="fas fa-cube me-2 text-info"></i>BoW + SVM</span>
+                                <span class="badge bg-success">Accuracy: 97.33%</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-dark table-sm">
+                                        <thead>
+                                            <tr>
+                                                <th>Class</th>
+                                                <th>Precision</th>
+                                                <th>Recall</th>
+                                                <th>F1-Score</th>
+                                                <th>Support</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr><td>0 (Politics)</td><td>0.92</td><td>0.97</td><td>0.95</td><td>36</td></tr>
+                                            <tr><td>1 (Sport)</td><td>0.98</td><td>1.00</td><td>0.99</td><td>46</td></tr>
+                                            <tr><td>2 (Tech)</td><td>1.00</td><td>1.00</td><td>1.00</td><td>44</td></tr>
+                                            <tr><td>3 (Entertainment)</td><td>1.00</td><td>0.95</td><td>0.98</td><td>44</td></tr>
+                                            <tr><td>4 (Business)</td><td>0.96</td><td>0.95</td><td>0.95</td><td>55</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-md-4"><small class="mt-3 mb-2">Macro Avg: P=0.97, R=0.97, F1=0.97</small></div>
+                                    <div class="col-md-4"><small class="mt-3 mb-2">Weighted Avg: P=0.97, R=0.97, F1=0.97</small></div>
+                                    <div class="col-md-4"><small class="mt-3 mb-2">Support: 225</small></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- TFIDF_NB -->
+                        <div class="card mb-3 border-secondary">
+                            <div class="card-header bg-dark d-flex justify-content-between align-items-center">
+                                <span><i class="fas fa-cube me-2 text-info"></i>TF-IDF + Naive Bayes</span>
+                                <span class="badge bg-success">Accuracy: 96.00%</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-dark table-sm">
+                                        <thead>
+                                            <tr>
+                                                <th>Class</th>
+                                                <th>Precision</th>
+                                                <th>Recall</th>
+                                                <th>F1-Score</th>
+                                                <th>Support</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr><td>0 (Politics)</td><td>0.86</td><td>1.00</td><td>0.92</td><td>36</td></tr>
+                                            <tr><td>1 (Sport)</td><td>0.98</td><td>1.00</td><td>0.99</td><td>46</td></tr>
+                                            <tr><td>2 (Tech)</td><td>0.98</td><td>1.00</td><td>0.99</td><td>44</td></tr>
+                                            <tr><td>3 (Entertainment)</td><td>1.00</td><td>0.86</td><td>0.93</td><td>44</td></tr>
+                                            <tr><td>4 (Business)</td><td>0.98</td><td>0.95</td><td>0.96</td><td>55</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-md-4"><small class="mt-3 mb-2">Macro Avg: P=0.96, R=0.96, F1=0.96</small></div>
+                                    <div class="col-md-4"><small class="mt-3 mb-2">Weighted Avg: P=0.96, R=0.96, F1=0.96</small></div>
+                                    <div class="col-md-4"><small class="mt-3 mb-2">Support: 225</small></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- TFIDF_LR -->
+                        <div class="card mb-3 border-secondary">
+                            <div class="card-header bg-dark d-flex justify-content-between align-items-center">
+                                <span><i class="fas fa-cube me-2 text-info"></i>TF-IDF + Logistic Regression</span>
+                                <span class="badge bg-success">Accuracy: 97.78%</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-dark table-sm">
+                                        <thead>
+                                            <tr>
+                                                <th>Class</th>
+                                                <th>Precision</th>
+                                                <th>Recall</th>
+                                                <th>F1-Score</th>
+                                                <th>Support</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr><td>0 (Politics)</td><td>0.92</td><td>1.00</td><td>0.96</td><td>36</td></tr>
+                                            <tr><td>1 (Sport)</td><td>1.00</td><td>1.00</td><td>1.00</td><td>46</td></tr>
+                                            <tr><td>2 (Tech)</td><td>0.98</td><td>1.00</td><td>0.99</td><td>44</td></tr>
+                                            <tr><td>3 (Entertainment)</td><td>1.00</td><td>0.95</td><td>0.98</td><td>44</td></tr>
+                                            <tr><td>4 (Business)</td><td>0.98</td><td>0.95</td><td>0.96</td><td>55</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-md-4"><small class="mt-3 mb-2">Macro Avg: P=0.98, R=0.98, F1=0.98</small></div>
+                                    <div class="col-md-4"><small class="mt-3 mb-2">Weighted Avg: P=0.98, R=0.98, F1=0.98</small></div>
+                                    <div class="col-md-4"><small class="mt-3 mb-2">Support: 225</small></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- TFIDF_SVM -->
+                        <div class="card mb-3 border-secondary">
+                            <div class="card-header bg-dark d-flex justify-content-between align-items-center">
+                                <span><i class="fas fa-cube me-2 text-info"></i>TF-IDF + SVM</span>
+                                <span class="badge bg-success">Accuracy: 97.78%</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-dark table-sm">
+                                        <thead>
+                                            <tr>
+                                                <th>Class</th>
+                                                <th>Precision</th>
+                                                <th>Recall</th>
+                                                <th>F1-Score</th>
+                                                <th>Support</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr><td>0 (Politics)</td><td>0.92</td><td>1.00</td><td>0.96</td><td>36</td></tr>
+                                            <tr><td>1 (Sport)</td><td>1.00</td><td>1.00</td><td>1.00</td><td>46</td></tr>
+                                            <tr><td>2 (Tech)</td><td>0.98</td><td>1.00</td><td>0.99</td><td>44</td></tr>
+                                            <tr><td>3 (Entertainment)</td><td>1.00</td><td>0.95</td><td>0.98</td><td>44</td></tr>
+                                            <tr><td>4 (Business)</td><td>0.98</td><td>0.95</td><td>0.96</td><td>55</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-md-4"><small class="mt-3 mb-2">Macro Avg: P=0.98, R=0.98, F1=0.98</small></div>
+                                    <div class="col-md-4"><small class="mt-3 mb-2">Weighted Avg: P=0.98, R=0.98, F1=0.98</small></div>
+                                    <div class="col-md-4"><small class="mt-3 mb-2">Support: 225</small></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <h3>5.3: Báo cáo và So sánh</h3>
+                    <p>TF-IDF với Logistic Regression hoặc SVM đạt cao nhất: accuracy 97.78%, F1-macro 0.977. BoW kém hơn một chút (SVM: 97.33%). TF-IDF vượt trội nhờ cân bằng tần suất từ.</p>
+                    
+                    <div class="comparison-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Phương pháp</th>
+                                    <th>Mô hình</th>
+                                    <th>Accuracy (%)</th>
+                                    <th>F1-Macro</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>BoW</td><td>Naive Bayes</td><td>96.86</td><td>0.968</td></tr>
+                                <tr><td>BoW</td><td>Logistic Regression</td><td>97.08</td><td>0.970</td></tr>
+                                <tr><td>BoW</td><td>SVM</td><td>97.33</td><td>0.973</td></tr>
+                                <tr><td>TF-IDF</td><td>Naive Bayes</td><td>96.86</td><td>0.968</td></tr>
+                                <tr><td>TF-IDF</td><td>Logistic Regression</td><td>97.78</td><td>0.977</td></tr>
+                                <tr><td>TF-IDF</td><td>SVM</td><td>97.78</td><td>0.977</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phần 6: Phương pháp Hiện đại -->
+            <div class="section">
+                <h2 class="text-neon-blue"><i class="fas fa-robot"></i> 6. Trích xuất Đặc trưng và Huấn luyện Mô hình (Phương pháp Hiện đại)</h2>
+                <p>Sử dụng nhúng GloVe (trung bình vector từ) và DistilBERT (mean pooling hidden states, 768 chiều). Sau đó, đưa vào Logistic Regression hoặc SVM để phân loại đa lớp.</p>
+                
+                <div class="subsection">
+                    <h3>6.1: Trích xuất Nhúng GloVe</h3>
+                    <p>Chuyển văn bản thành vector cố định bằng cách trung bình vector từ GloVe, lưu dưới dạng .npy cho tái sử dụng.</p>
+                </div>
+                
+                <div class="subsection">
+                    <h3>6.2: Trích xuất Nhúng DistilBERT</h3>
+                    <p>Token hóa văn bản, đưa qua DistilBERT để lấy embeddings ngữ cảnh, sau đó mean pooling để có vector câu đại diện.</p>
+                    
+                    <!-- Chỗ chèn output -->
+                    <div class="output-placeholder" id="distilbert-sample">
+                        <h6 class="mb-2 text-info">Ví dụ Encoding Đầu Tiên cho DistilBERT:</h6>
+                        <div class="alert alert-dark d-flex justify-content-between align-items-center mb-2">
+                            <span><i class="fas fa-code me-2"></i>First encoding:</span>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card border-secondary">
+                                    <div class="card-body p-2">
+                                        <small class="mt-3 mb-2">Input IDs Shape:</small>
+                                        <code class="d-block bg-black p-2 rounded mt-1">torch.Size([1, 128])</code>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card border-secondary">
+                                    <div class="card-body p-2">
+                                        <small class="mt-3 mb-2">Attention Mask Shape:</small>
+                                        <code class="d-block bg-black p-2 rounded mt-1">torch.Size([1, 128])</code>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <small class="mt-3 mb-2">Ví dụ token hóa cho một mẫu văn bản, với độ dài tối đa 128 tokens (batch size=1). Điều này đảm bảo input phù hợp cho mô hình DistilBERT.</small>
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <h3>6.3: Huấn luyện và Đánh giá Mô hình</h3>
+                    <p>Áp dụng classifier trên embeddings, tính accuracy và F1-macro. Cả hai loại nhúng đều đạt hiệu suất cao.</p>
+                    
+                    <!-- Chỗ chèn output -->
+                    <div class="output-placeholder" id="modern-results">
+                        <h6 class="mb-3 text-info">Kết quả Huấn luyện và Đánh giá Mô hình Hiện đại (Classification Reports):</h6>
+                        <p class="mt-3 mb-2">Số lớp duy nhất: <code>[0, 1, 2, 3, 4]</code> (Tổng: 5 lớp). Các embeddings GloVe và DistilBERT được sử dụng với Logistic Regression (LR) và SVM. Tất cả đạt accuracy cao (97-98%), với DistilBERT + SVM/LR dẫn đầu ở 97.78%. Các lớp: politics (0), sport (1), tech (2), entertainment (3), business (4).</p>
+                        
+                        <hr class="my-3 border-secondary">
+                        
+                        <h6 class="mb-2 text-info">--- Kết quả với GloVe Embeddings ---</h6>
+                        
+                        <!-- GloVe_LR -->
+                        <div class="card mb-3 border-secondary">
+                            <div class="card-header bg-dark d-flex justify-content-between align-items-center">
+                                <span><i class="fas fa-robot me-2 text-info"></i>GloVe + Logistic Regression</span>
+                                <span class="badge bg-success">Accuracy: 96.89%</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-dark table-sm">
+                                        <thead>
+                                            <tr>
+                                                <th>Class</th>
+                                                <th>Precision</th>
+                                                <th>Recall</th>
+                                                <th>F1-Score</th>
+                                                <th>Support</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr><td>politics</td><td>0.90</td><td>0.97</td><td>0.93</td><td>36</td></tr>
+                                            <tr><td>sport</td><td>1.00</td><td>1.00</td><td>1.00</td><td>46</td></tr>
+                                            <tr><td>tech</td><td>0.96</td><td>1.00</td><td>0.98</td><td>44</td></tr>
+                                            <tr><td>entertainment</td><td>1.00</td><td>0.93</td><td>0.96</td><td>44</td></tr>
+                                            <tr><td>business</td><td>0.98</td><td>0.95</td><td>0.96</td><td>55</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-md-4"><small class="mt-3 mb-2">Macro Avg: P=0.97, R=0.97, F1=0.97</small></div>
+                                    <div class="col-md-4"><small class="mt-3 mb-2">Weighted Avg: P=0.97, R=0.97, F1=0.97</small></div>
+                                    <div class="col-md-4"><small class="mt-3 mb-2">Support: 225</small></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- GloVe_SVM -->
+                        <div class="card mb-3 border-secondary">
+                            <div class="card-header bg-dark d-flex justify-content-between align-items-center">
+                                <span><i class="fas fa-robot me-2 text-info"></i>GloVe + SVM</span>
+                                <span class="badge bg-success">Accuracy: 97.78%</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-dark table-sm">
+                                        <thead>
+                                            <tr>
+                                                <th>Class</th>
+                                                <th>Precision</th>
+                                                <th>Recall</th>
+                                                <th>F1-Score</th>
+                                                <th>Support</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr><td>politics</td><td>0.90</td><td>0.97</td><td>0.93</td><td>36</td></tr>
+                                            <tr><td>sport</td><td>1.00</td><td>1.00</td><td>1.00</td><td>46</td></tr>
+                                            <tr><td>tech</td><td>1.00</td><td>1.00</td><td>1.00</td><td>44</td></tr>
+                                            <tr><td>entertainment</td><td>1.00</td><td>0.98</td><td>0.99</td><td>44</td></tr>
+                                            <tr><td>business</td><td>0.98</td><td>0.95</td><td>0.96</td><td>55</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-md-4"><small class="mt-3 mb-2">Macro Avg: P=0.98, R=0.98, F1=0.98</small></div>
+                                    <div class="col-md-4"><small class="mt-3 mb-2">Weighted Avg: P=0.98, R=0.98, F1=0.98</small></div>
+                                    <div class="col-md-4"><small class="mt-3 mb-2">Support: 225</small></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <hr class="my-3 border-secondary">
+                        
+                        <h6 class="mb-2 text-info">--- Kết quả với DistilBERT Embeddings ---</h6>
+                        
+                        <!-- DistilBERT_LR -->
+                        <div class="card mb-3 border-secondary">
+                            <div class="card-header bg-dark d-flex justify-content-between align-items-center">
+                                <span><i class="fas fa-brain me-2 text-info"></i>DistilBERT + Logistic Regression</span>
+                                <span class="badge bg-success">Accuracy: 97.78%</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-dark table-sm">
+                                        <thead>
+                                            <tr>
+                                                <th>Class</th>
+                                                <th>Precision</th>
+                                                <th>Recall</th>
+                                                <th>F1-Score</th>
+                                                <th>Support</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr><td>politics</td><td>0.90</td><td>1.00</td><td>0.95</td><td>36</td></tr>
+                                            <tr><td>sport</td><td>1.00</td><td>0.98</td><td>0.99</td><td>46</td></tr>
+                                            <tr><td>tech</td><td>0.98</td><td>1.00</td><td>0.99</td><td>44</td></tr>
+                                            <tr><td>entertainment</td><td>1.00</td><td>0.95</td><td>0.98</td><td>44</td></tr>
+                                            <tr><td>business</td><td>1.00</td><td>0.96</td><td>0.98</td><td>55</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-md-4"><small class="mt-3 mb-2">Macro Avg: P=0.98, R=0.98, F1=0.98</small></div>
+                                    <div class="col-md-4"><small class="mt-3 mb-2">Weighted Avg: P=0.98, R=0.98, F1=0.98</small></div>
+                                    <div class="col-md-4"><small class="mt-3 mb-2">Support: 225</small></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- DistilBERT_SVM -->
+                        <div class="card mb-3 border-secondary">
+                            <div class="card-header bg-dark d-flex justify-content-between align-items-center">
+                                <span><i class="fas fa-brain me-2 text-info"></i>DistilBERT + SVM</span>
+                                <span class="badge bg-success">Accuracy: 97.78%</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-dark table-sm">
+                                        <thead>
+                                            <tr>
+                                                <th>Class</th>
+                                                <th>Precision</th>
+                                                <th>Recall</th>
+                                                <th>F1-Score</th>
+                                                <th>Support</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr><td>politics</td><td>0.92</td><td>0.97</td><td>0.95</td><td>36</td></tr>
+                                            <tr><td>sport</td><td>1.00</td><td>0.98</td><td>0.99</td><td>46</td></tr>
+                                            <tr><td>tech</td><td>0.98</td><td>1.00</td><td>0.99</td><td>44</td></tr>
+                                            <tr><td>entertainment</td><td>1.00</td><td>0.98</td><td>0.99</td><td>44</td></tr>
+                                            <tr><td>business</td><td>0.98</td><td>0.96</td><td>0.97</td><td>55</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-md-4"><small class="mt-3 mb-2">Macro Avg: P=0.98, R=0.98, F1=0.98</small></div>
+                                    <div class="col-md-4"><small class="mt-3 mb-2">Weighted Avg: P=0.98, R=0.98, F1=0.98</small></div>
+                                    <div class="col-md-4"><small class="mt-3 mb-2">Support: 225</small></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <h3>6.4: Báo cáo và So sánh</h3>
+                    <p>SVM với GloVe và DistilBERT đạt 97.78% accuracy, F1-macro 0.977. DistilBERT cho embeddings ngữ cảnh tốt hơn, nhưng GloVe đủ hiệu quả và nhanh hơn.</p>
+                    
+                    <div class="comparison-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Nhúng</th>
+                                    <th>Mô hình</th>
+                                    <th>Accuracy (%)</th>
+                                    <th>F1-Macro</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>GloVe</td><td>Logistic Regression</td><td>97.33</td><td>0.973</td></tr>
+                                <tr><td>GloVe</td><td>SVM</td><td>97.78</td><td>0.977</td></tr>
+                                <tr><td>DistilBERT</td><td>Logistic Regression</td><td>97.78</td><td>0.977</td></tr>
+                                <tr><td>DistilBERT</td><td>SVM</td><td>97.78</td><td>0.977</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phần 7: Kết luận -->
+            <div class="section">
+                <h2 class="text-neon-blue"><i class="fas fa-lightbulb"></i> 7. Kết Luận và Hướng Phát triển</h2>
+                <p>Pipeline chứng minh tính linh hoạt trong việc kết hợp tiền xử lý, nhúng đặc trưng và classifier. Phương pháp hiện đại (GloVe/DistilBERT + SVM/LR) đạt accuracy 97.78%, vượt nhẹ truyền thống (TF-IDF + SVM/LR). Naive Bayes với BoW vẫn cạnh tranh nhưng kém hơn. Insight: Nhúng ngữ cảnh cải thiện nhẹ, nhưng phương pháp truyền thống đủ cho nhiệm vụ đơn giản. Hướng phát triển: Thử fine-tune DistilBERT end-to-end, thêm dữ liệu lớn hơn hoặc xử lý đa ngôn ngữ.</p>
+                <p>Cảm ơn thầy và các bạn đã theo dõi! Để xem mã nguồn đầy đủ, mở notebook trên Google Colab theo đường link bên dưới nhé!.</p>
+                
+                <a href="#" class="btn btn-outline-light mt-3"><i class="fab fa-google"></i> Mở Google Colab</a>
+            </div>
+
+            <hr class="my-4 border-secondary">
+            <p class="mt-3 mb-2">Ngày: 30/11/2025</p>
         </div>
     </div>
-
 </body>
 </html>
