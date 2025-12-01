@@ -3,65 +3,548 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chi Tiết Bài Tập - NEON1</title>
+    <title>BTL3 - Computer Vision | NEON1</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
 
     <style>
+        /* --- CORE VARIABLES --- */
         :root {
+            --neon-green: #00ff9d;
             --neon-blue: #00f3ff;
+            --neon-purple: #bc13fe;
             --dark-bg: #0a0a12;
-            --text-main: #e0e0e0;
+            --card-bg: #161625;
+            --text-main: #f0f0f0;
         }
+
+        /* --- BASIC SETUP --- */
         body {
             background-color: var(--dark-bg);
             color: var(--text-main);
             font-family: 'Roboto', sans-serif;
-            padding-top: 50px;
+            overflow-x: hidden;
         }
-        h1, h2 { font-family: 'Orbitron', sans-serif; }
-        
-        /* Nút quay lại */
-        .btn-back {
+
+        h1, h2, h3, h4, h5, .brand-font {
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+        }
+
+        a { text-decoration: none; }
+
+        /* --- NEON TEXT EFFECTS --- */
+        .text-neon-green { color: var(--neon-green); text-shadow: 0 0 10px rgba(0, 255, 157, 0.5); }
+        .text-neon-blue { color: var(--neon-blue); text-shadow: 0 0 10px rgba(0, 243, 255, 0.5); }
+        .text-neon-purple { color: var(--neon-purple); text-shadow: 0 0 10px rgba(188, 19, 254, 0.5); }
+        .text-desc { color: #d1d1d1; }
+
+        /* --- HEADER SECTION --- */
+        .hero-header {
+            background: radial-gradient(circle at center, rgba(0, 243, 255, 0.08) 0%, var(--dark-bg) 70%);
+            padding: 80px 0 60px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            position: relative;
+        }
+
+        /* --- GLASSMOPHISM CARDS --- */
+        .glass-card {
+            background: rgba(22, 22, 37, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 25px;
+            height: 100%;
+            transition: all 0.4s ease;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .glass-card:hover {
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 25px rgba(0, 243, 255, 0.1);
+            transform: translateY(-5px);
+        }
+
+        /* --- PROGRESS BARS --- */
+        .progress-label { font-size: 0.9rem; margin-bottom: 5px; display: flex; justify-content: space-between; color: #fff; }
+        .progress-custom { height: 6px; background-color: #2c2c35; border-radius: 4px; margin-bottom: 15px; }
+        .progress-bar-custom { 
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple)); 
+            box-shadow: 0 0 8px var(--neon-blue); 
+            border-radius: 4px;
+        }
+
+        /* --- STEPS NUMBERS --- */
+        .step-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: rgba(255,255,255,0.1);
+            position: absolute;
+            top: 5px;
+            right: 20px;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        /* --- TABLES --- */
+        .table-custom {
+            --bs-table-bg: transparent;
+            --bs-table-color: #fff;
+            border-color: rgba(255,255,255,0.15);
+        }
+        .table-custom th { 
+            color: var(--neon-green); 
+            font-weight: normal; 
+            font-family: 'Orbitron'; 
+            font-size: 1em; 
+            border-bottom-width: 1px;
+        }
+        .table-custom td {
+            vertical-align: middle;
+        }
+
+        /* --- TABS NAVIGATION --- */
+        .nav-pills .nav-link {
+            color: rgba(255,255,255,0.6);
+            border: 1px solid rgba(255,255,255,0.1);
+            margin: 0 6px;
+            border-radius: 50px;
+            padding: 10px 25px;
+            transition: all 0.3s ease;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+        .nav-pills .nav-link:hover {
+            color: #fff;
+            border-color: var(--neon-blue);
+            background: rgba(255,255,255,0.05);
+        }
+        .nav-pills .nav-link.active {
+            background-color: rgba(0, 243, 255, 0.1);
             color: var(--neon-blue);
-            border: 1px solid var(--neon-blue);
-            text-decoration: none;
-            padding: 10px 20px;
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
+        }
+
+        /* --- WINNER BADGE --- */
+        .winner-box {
+            border: 2px solid var(--neon-green);
+            background: radial-gradient(circle, rgba(0, 255, 157, 0.1) 0%, rgba(0,0,0,0) 70%);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(0, 255, 157, 0.05);
+        }
+        .winner-box::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 4px;
+            background: var(--neon-green);
+            box-shadow: 0 0 15px var(--neon-green);
+        }
+
+        /* --- CHART CANVAS --- */
+        .chart-container {
+            position: relative;
+            height: 400px;
+            width: 100%;
+        }
+
+        /* --- BACK BUTTON --- */
+        .btn-back {
+            position: fixed;
+            top: 25px;
+            left: 25px;
+            z-index: 1000;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #fff;
+            padding: 8px 18px;
             border-radius: 30px;
             transition: 0.3s;
+            font-size: 0.9rem;
         }
-        .btn-back:hover {
-            background: var(--neon-blue);
-            color: #000;
-            box-shadow: 0 0 15px var(--neon-blue);
-        }
-        
-        .content-box {
-            background: rgba(255,255,255,0.05);
-            border-radius: 15px;
-            padding: 30px;
-            margin-top: 30px;
-            border: 1px solid #333;
+        .btn-back:hover { 
+            border-color: var(--neon-blue); 
+            color: var(--neon-blue); 
+            background: rgba(0,0,0,0.8);
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <a href="../index.html" class="btn-back"><i class="fas fa-arrow-left"></i> Quay lại Dashboard</a>
+    <a href="../index.html" class="btn-back"><i class="fas fa-arrow-left me-2"></i>Dashboard</a>
 
-        <div class="content-box text-center">
-            <h1 class="text-warning mb-4">🚧 Đang Xây Dựng 🚧</h1>
-            <h2 class="mb-3">Chi Tiết Bài Tập Lớn</h2>
-            <p class="lead">Nội dung báo cáo chi tiết và phân tích dữ liệu đang được cập nhật...</p>
-            
-            <hr class="my-4 border-secondary">
-            
-            <p>Trong lúc chờ đợi, bạn có thể xem code trực tiếp tại:</p>
-            <a href="#" class="btn btn-outline-light"><i class="fab fa-google"></i> Mở Google Colab</a>
+    <header class="hero-header text-center">
+        <div class="container">
+            <span class="badge border border-info text-info rounded-pill mb-3 px-3 py-2">Machine Learning Project</span>
+            <h1 class="display-3 fw-bold mb-3">PHÂN LOẠI RÁC THẢI <span class="text-neon-blue">TỰ ĐỘNG</span></h1>
+            <p class="lead text-desc mx-auto mb-4" style="max-width: 800px;">
+                Tối ưu hóa quy trình phân loại rác tái chế bằng kỹ thuật <strong>Feature Extraction</strong> kết hợp với các kiến trúc CNN hiện đại (ResNet, EfficientNet, VGG).
+            </p>
+            <div class="d-flex justify-content-center gap-3">
+                <a href="#results" class="btn btn-outline-light rounded-pill px-4 py-2">Xem Kết Quả</a>
+                <a href="https://colab.research.google.com/drive/1rFp4BfnUCGvaKIKmisX-6sq1pir53Tlj?usp=sharing" target="_blank" class="btn btn-outline-info rounded-pill px-4 py-2">
+                    <i class="fab fa-google me-2"></i>Open Colab
+                </a>
+            </div>
         </div>
-    </div>
+    </header>
 
+    <section class="py-5">
+        <div class="container">
+            <h3 class="brand-font mb-4 text-neon-purple"><i class="fas fa-database me-2"></i> Dữ Liệu & Phân Tích</h3>
+            <div class="row g-4">
+                <div class="col-lg-5">
+                    <div class="glass-card d-flex flex-column justify-content-center">
+                        <h4 class="mb-4 text-white">Garbage Images Dataset</h4>
+                        <ul class="list-unstyled text-white lead fs-6">
+                            <li class="mb-3 d-flex align-items-center"><i class="fas fa-check-circle text-success me-3"></i> <span><strong>Quy mô:</strong> ~15,000 ảnh (2.3k - 2.5k ảnh/lớp).</span></li>
+                            <li class="mb-3 d-flex align-items-center"><i class="fas fa-expand text-info me-3"></i> <span><strong>Input:</strong> Resize đồng bộ về 256x256 px.</span></li>
+                            <li class="mb-3 d-flex align-items-center"><i class="fas fa-palette text-warning me-3"></i> <span><strong>Định dạng:</strong> RGB (3 Channels).</span></li>
+                            <li class="d-flex align-items-center"><i class="fas fa-balance-scale text-danger me-3"></i> <span><strong>Đánh giá:</strong> Dataset cân bằng tốt.</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="glass-card">
+                        <h5 class="mb-3 text-white">Phân bố dữ liệu các lớp</h5>
+                        
+                        <div class="progress-label"><span>Glass (Thủy tinh)</span><span>~2500</span></div>
+                        <div class="progress progress-custom"><div class="progress-bar progress-bar-custom" style="width: 100%"></div></div>
+
+                        <div class="progress-label"><span>Trash (Rác thải chung)</span><span>~2500</span></div>
+                        <div class="progress progress-custom"><div class="progress-bar progress-bar-custom" style="width: 98%"></div></div>
+
+                        <div class="progress-label"><span>Paper (Giấy)</span><span>~2400</span></div>
+                        <div class="progress progress-custom"><div class="progress-bar progress-bar-custom" style="width: 92%"></div></div>
+
+                        <div class="progress-label"><span>Plastic (Nhựa)</span><span>~2300</span></div>
+                        <div class="progress progress-custom"><div class="progress-bar progress-bar-custom" style="width: 88%"></div></div>
+
+                        <div class="progress-label"><span>Cardboard (Bìa cứng)</span><span>~2200</span></div>
+                        <div class="progress progress-custom"><div class="progress-bar progress-bar-custom" style="width: 85%"></div></div>
+
+                        <div class="progress-label"><span>Metal (Kim loại)</span><span>~2100</span></div>
+                        <div class="progress progress-custom"><div class="progress-bar progress-bar-custom" style="width: 80%; background: var(--neon-purple)"></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-5 bg-opacity-10" style="background-color: rgba(255,255,255,0.02)">
+        <div class="container">
+            <h3 class="brand-font mb-5 text-neon-blue text-center">Phương Pháp Thực Hiện</h3>
+            
+            <div class="row g-4 mb-5">
+                <div class="col-md-4">
+                    <div class="glass-card text-center position-relative">
+                        <div class="step-number">01</div>
+                        <i class="fas fa-brain fa-3x text-primary mb-3"></i>
+                        <h5 class="text-neon-blue">Feature Extraction</h5>
+                        <p class="small text-desc px-2">Sử dụng các mô hình Pre-trained để trích xuất vector đặc trưng thay vì huấn luyện từ đầu.</p>
+                        <hr class="border-secondary opacity-25">
+                        <div class="d-flex flex-wrap justify-content-center gap-2">
+                            <span class="badge border border-light text-light fw-normal">VGG16</span>
+                            <span class="badge border border-light text-light fw-normal">ResNet50</span>
+                            <span class="badge border border-light text-light fw-normal">EfficientNet</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="glass-card text-center position-relative">
+                        <div class="step-number">02</div>
+                        <i class="fas fa-filter fa-3x text-warning mb-3"></i>
+                        <h5 class="text-warning">Preprocessing</h5>
+                        <p class="small text-desc px-2">Xử lý vector đặc trưng để tối ưu hóa không gian dữ liệu cho các thuật toán cổ điển.</p>
+                        <hr class="border-secondary opacity-25">
+                        <ul class="list-unstyled small text-start mx-auto text-desc d-inline-block">
+                            <li><i class="fas fa-caret-right text-warning me-2"></i>StandardScaler (Mean=0)</li>
+                            <li><i class="fas fa-caret-right text-warning me-2"></i>PCA (Giữ 95% Variance)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="glass-card text-center position-relative">
+                        <div class="step-number">03</div>
+                        <i class="fas fa-chart-line fa-3x text-success mb-3"></i>
+                        <h5 class="text-neon-green">Classification</h5>
+                        <p class="small text-desc px-2">Huấn luyện các bộ phân loại Machine Learning trên tập đặc trưng đã xử lý.</p>
+                        <hr class="border-secondary opacity-25">
+                        <div class="d-flex flex-wrap justify-content-center gap-2">
+                            <span class="badge bg-success bg-opacity-75">SVM</span>
+                            <span class="badge bg-secondary text-white">Random Forest</span>
+                            <span class="badge bg-secondary text-white">LogReg</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="results" class="py-5">
+        <div class="container">
+            <h3 class="brand-font mb-5 text-neon-green text-center"><i class="fas fa-trophy me-2"></i> Kết Quả Thực Nghiệm</h3>
+
+            <div class="row justify-content-center mb-5">
+                <div class="col-lg-8">
+                    <div class="winner-box">
+                        <h2 class="text-neon-green brand-font mb-2">BEST OVERALL MODEL</h2>
+                        <h4 class="text-white mb-3">SVM + ResNet50 Features</h4>
+                        <div class="display-2 fw-bold text-white mb-2" style="text-shadow: 0 0 20px rgba(255,255,255,0.3);">95.22%</div>
+                        <p class="text-white opacity-75 text-uppercase fw-bold" style="letter-spacing: 2px;">Test Accuracy</p>
+                        
+                        <div class="mt-3">
+                            <span class="d-inline-block px-4 py-2 border border-secondary rounded-pill text-light small bg-dark">
+                                Cross-Validation Score: <strong class="text-neon-blue">93.49%</strong>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row justify-content-center mb-5">
+                <div class="col-lg-10">
+                    <div class="glass-card">
+                        <h4 class="text-neon-blue mb-4 text-center">So Sánh Hiệu Năng (Test Accuracy)</h4>
+                        <div class="chart-container">
+                            <canvas id="performanceChart"></canvas>
+                        </div>
+                        <p class="text-center text-white opacity-50 mt-3 small fst-italic">
+                            Biểu đồ thể hiện độ chính xác (Test Accuracy) của từng cặp Feature Extractor + Classifier.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <ul class="nav nav-pills justify-content-center mb-4" id="pills-tab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="pills-resnet-tab" data-bs-toggle="pill" data-bs-target="#pills-resnet" type="button" role="tab">ResNet50</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="pills-efficient-tab" data-bs-toggle="pill" data-bs-target="#pills-efficient" type="button" role="tab">EfficientNet</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="pills-vgg-tab" data-bs-toggle="pill" data-bs-target="#pills-vgg" type="button" role="tab">VGG16</button>
+                </li>
+            </ul>
+
+            <div class="tab-content" id="pills-tabContent">
+                
+                <div class="tab-pane fade show active" id="pills-resnet" role="tabpanel">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-10">
+                            <div class="glass-card p-0 overflow-hidden">
+                                <table class="table table-custom table-hover mb-0 align-middle text-center">
+                                    <thead class="bg-white bg-opacity-10">
+                                        <tr>
+                                            <th class="py-3 text-start ps-5">Mô Hình (Classifier)</th>
+                                            <th class="py-3">CV Score</th>
+                                            <th class="py-3">Test Accuracy</th>
+                                            <th class="py-3">Đánh giá</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="text-start ps-5 fw-bold text-neon-blue">Support Vector Machine (SVM)</td>
+                                            <td>93.49%</td>
+                                            <td class="fw-bold fs-5 text-white">95.22%</td>
+                                            <td><span class="badge bg-success">Xuất sắc</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-start ps-5">Random Forest</td>
+                                            <td class="text-secondary">-</td>
+                                            <td class="text-white">92.13%</td>
+                                            <td><span class="badge bg-primary">Tốt</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-start ps-5">Logistic Regression</td>
+                                            <td class="text-secondary">-</td>
+                                            <td class="text-white">92.02%</td>
+                                            <td><span class="badge bg-primary">Tốt</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="pills-efficient" role="tabpanel">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-10">
+                            <div class="glass-card p-0 overflow-hidden">
+                                <table class="table table-custom table-hover mb-0 align-middle text-center">
+                                    <thead class="bg-white bg-opacity-10">
+                                        <tr>
+                                            <th class="py-3 text-start ps-5">Mô Hình (Classifier)</th>
+                                            <th class="py-3">CV Score</th>
+                                            <th class="py-3">Test Accuracy</th>
+                                            <th class="py-3">Đánh giá</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="text-start ps-5 fw-bold text-neon-blue">Support Vector Machine (SVM)</td>
+                                            <td>94.26%</td>
+                                            <td class="fw-bold fs-5 text-white">94.64%</td>
+                                            <td><span class="badge bg-success">Rất tốt</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-start ps-5">Logistic Regression</td>
+                                            <td>91.43%</td>
+                                            <td class="text-white">92.92%</td>
+                                            <td><span class="badge bg-primary">Tốt</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-start ps-5">Random Forest</td>
+                                            <td>87.90%</td>
+                                            <td class="text-white">88.46%</td>
+                                            <td><span class="badge bg-warning text-dark">Khá</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="pills-vgg" role="tabpanel">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-10">
+                            <div class="glass-card p-0 overflow-hidden">
+                                <table class="table table-custom table-hover mb-0 align-middle text-center">
+                                    <thead class="bg-white bg-opacity-10">
+                                        <tr>
+                                            <th class="py-3 text-start ps-5">Mô Hình (Classifier)</th>
+                                            <th class="py-3">CV Score</th>
+                                            <th class="py-3">Test Accuracy</th>
+                                            <th class="py-3">Đánh giá</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="text-start ps-5 fw-bold text-neon-blue">Logistic Regression</td>
+                                            <td>91.21%</td>
+                                            <td class="fw-bold fs-5 text-white">92.23%</td>
+                                            <td><span class="badge bg-primary">Tốt</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-start ps-5">Support Vector Machine (SVM)</td>
+                                            <td>91.37%</td>
+                                            <td class="text-white">91.30%</td>
+                                            <td><span class="badge bg-primary">Tốt</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-start ps-5">Random Forest</td>
+                                            <td>83.45%</td>
+                                            <td class="text-white">85.19%</td>
+                                            <td><span class="badge bg-secondary">Trung bình</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            
+        </div>
+    </section>
+
+    <footer class="py-4 text-center text-secondary border-top border-secondary mt-5" style="background-color: #050508;">
+        <div class="container">
+            <p class="mb-1 text-light">&copy; 2024 NEON1 Team. Created for Machine Learning Course.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const ctx = document.getElementById('performanceChart').getContext('2d');
+            
+            // Define data variables
+            const labels = ['Support Vector Machine (SVM)', 'Logistic Regression', 'Random Forest'];
+            
+            // Data based on your report
+            const resnetData = [95.22, 92.02, 92.13];     // Order: SVM, LogReg, RF
+            const efficientData = [94.64, 92.92, 88.46];  // Order: SVM, LogReg, RF
+            const vggData = [91.30, 92.23, 85.19];        // Order: SVM, LogReg, RF
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'ResNet50 Features',
+                            data: resnetData,
+                            backgroundColor: 'rgba(0, 255, 157, 0.7)', // Neon Green
+                            borderColor: '#00ff9d',
+                            borderWidth: 1,
+                            borderRadius: 5
+                        },
+                        {
+                            label: 'EfficientNet Features',
+                            data: efficientData,
+                            backgroundColor: 'rgba(0, 243, 255, 0.7)', // Neon Blue
+                            borderColor: '#00f3ff',
+                            borderWidth: 1,
+                            borderRadius: 5
+                        },
+                        {
+                            label: 'VGG16 Features',
+                            data: vggData,
+                            backgroundColor: 'rgba(188, 19, 254, 0.7)', // Neon Purple
+                            borderColor: '#bc13fe',
+                            borderWidth: 1,
+                            borderRadius: 5
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: { color: '#fff', font: { family: 'Roboto' } }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(22, 22, 37, 0.9)',
+                            titleColor: '#00f3ff',
+                            bodyColor: '#fff',
+                            borderColor: '#fff',
+                            borderWidth: 1
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            min: 80,
+                            max: 100,
+                            ticks: { color: '#bbb' },
+                            grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                            title: { display: true, text: 'Accuracy (%)', color: '#fff' }
+                        },
+                        x: {
+                            ticks: { color: '#fff' },
+                            grid: { display: false }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 </html>

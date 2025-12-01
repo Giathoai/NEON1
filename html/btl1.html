@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chi Tiết Bài Tập - NEON1</title>
+    <title>Chi Tiết Bài Tập - California Housing Price Prediction</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
@@ -13,16 +13,43 @@
             --neon-blue: #00f3ff;
             --dark-bg: #0a0a12;
             --text-main: #e0e0e0;
+            --card-bg: rgba(255,255,255,0.05);
         }
+        
         body {
             background-color: var(--dark-bg);
             color: var(--text-main);
             font-family: 'Roboto', sans-serif;
-            padding-top: 50px;
+            padding-top: 30px;
+            line-height: 1.8;
         }
-        h1, h2 { font-family: 'Orbitron', sans-serif; }
         
-        /* Nút quay lại */
+        h1, h2, h3, h4 { 
+            font-family: 'Orbitron', sans-serif;
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            color: var(--neon-blue);
+            text-align: center;
+            font-size: 2.5rem;
+            text-shadow: 0 0 20px var(--neon-blue);
+            margin-bottom: 40px;
+        }
+        
+        h2 {
+            color: #ffc107;
+            border-bottom: 2px solid #ffc107;
+            padding-bottom: 10px;
+            font-size: 2rem;
+        }
+        
+        h3 {
+            color: #17a2b8;
+            font-size: 1.5rem;
+        }
+        
         .btn-back {
             color: var(--neon-blue);
             border: 1px solid var(--neon-blue);
@@ -30,19 +57,107 @@
             padding: 10px 20px;
             border-radius: 30px;
             transition: 0.3s;
+            display: inline-block;
+            margin-bottom: 30px;
         }
+        
         .btn-back:hover {
             background: var(--neon-blue);
             color: #000;
             box-shadow: 0 0 15px var(--neon-blue);
         }
         
-        .content-box {
-            background: rgba(255,255,255,0.05);
+        .content-section {
+            background: var(--card-bg);
             border-radius: 15px;
             padding: 30px;
-            margin-top: 30px;
+            margin-bottom: 30px;
             border: 1px solid #333;
+        }
+        
+        .info-box {
+            background: rgba(0, 243, 255, 0.1);
+            border-left: 4px solid var(--neon-blue);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        
+        .warning-box {
+            background: rgba(255, 193, 7, 0.1);
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        
+        .success-box {
+            background: rgba(40, 167, 69, 0.1);
+            border-left: 4px solid #28a745;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        
+        .chart-container {
+            background: rgba(255,255,255,0.02);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        .chart-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 243, 255, 0.2);
+        }
+        
+        .chart-title {
+            color: var(--neon-blue);
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+        
+        ul, ol {
+            margin-left: 20px;
+        }
+        
+        li {
+            margin-bottom: 10px;
+        }
+        
+        code {
+            background: rgba(255,255,255,0.1);
+            padding: 2px 6px;
+            border-radius: 3px;
+            color: #ffc107;
+        }
+        
+        .model-table {
+            background: rgba(255,255,255,0.02);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        table {
+            color: var(--text-main);
+        }
+        
+        .conclusion {
+            background: linear-gradient(135deg, rgba(0, 243, 255, 0.1), rgba(255, 193, 7, 0.1));
+            border: 2px solid var(--neon-blue);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 40px 0;
+        }
+        
+        .metric-highlight {
+            color: #28a745;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -51,17 +166,555 @@
     <div class="container">
         <a href="../index.html" class="btn-back"><i class="fas fa-arrow-left"></i> Quay lại Dashboard</a>
 
-        <div class="content-box text-center">
-            <h1 class="text-warning mb-4">🚧 Đang Xây Dựng 🚧</h1>
-            <h2 class="mb-3">Chi Tiết Bài Tập Lớn</h2>
-            <p class="lead">Nội dung báo cáo chi tiết và phân tích dữ liệu đang được cập nhật...</p>
+        <h1>BÁO CÁO BÀI TẬP LỚN 1</h1>
+        <h1 style="font-size: 1.8rem; margin-top: -20px;">California House Price Prediction</h1>
+
+        <!-- Giới thiệu -->
+        <div class="content-section">
+            <h2>Giới thiệu bài toán</h2>
+            <p>Dữ liệu được công bố bởi <strong>US Census Bureau</strong> về các block group tại bang California, với 10 đặc trưng khác nhau như:</p>
+            <ul>
+                <li>Dân số (population)</li>
+                <li>Thu nhập trung bình (median income)</li>
+                <li>Tuổi trung bình của nhà ở (housing median age)</li>
+                <li>Số phòng, số phòng ngủ, số hộ gia đình</li>
+                <li>Khoảng cách tới biển (<code>ocean_proximity</code>)</li>
+                <li>Giá nhà trung bình (<code>median_house_value</code>)</li>
+            </ul>
             
-            <hr class="my-4 border-secondary">
+            <div class="info-box">
+                <strong><i class="fas fa-info-circle"></i> Thông tin dataset:</strong><br>
+                Mỗi block group thường có <strong>600 – 3,000 dân số</strong>, và trong dataset này có tổng cộng <strong>20,640 block groups</strong>.
+            </div>
+        </div>
+
+        <!-- Mục tiêu -->
+        <div class="content-section">
+            <h2>Mục tiêu</h2>
+            <p>Xây dựng một mô hình <strong>dự đoán giá nhà trung bình tại California</strong> dựa trên các đặc trưng đã cho.</p>
+            <p>Cụ thể, mô hình sẽ học từ dữ liệu và dự đoán được giá trị trung vị của một khu vực bất kỳ khi biết: dân số, thu nhập, vị trí địa lý, khoảng cách tới biển, v.v.</p>
             
-            <p>Trong lúc chờ đợi, bạn có thể xem code trực tiếp tại:</p>
-            <a href="#" class="btn btn-outline-light"><i class="fab fa-google"></i> Mở Google Colab</a>
+            <div class="warning-box">
+                <strong><i class="fas fa-robot"></i> Các mô hình được triển khai:</strong>
+                <ul style="margin-bottom: 0;">
+                    <li>Linear Regression</li>
+                    <li>Random Forest</li>
+                    <li>Support Vector Regression (SVR)</li>
+                    <li>Multi-layer Perceptron (MLP)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Khám phá dữ liệu -->
+        <div class="content-section">
+            <h2>1. Khám phá Dữ liệu</h2>
+            
+            <h3>1.1. Thông tin chung</h3>
+            <div class="info-box">
+                <strong>Quy mô & cấu trúc:</strong>
+                <ul>
+                    <li><strong>Kích thước:</strong> 20,640 bản ghi, 10 cột</li>
+                    <li><strong>Định dạng:</strong> bảng dữ liệu dạng phẳng (pandas DataFrame)</li>
+                </ul>
+                
+                <strong>Các thuộc tính:</strong>
+                <ul>
+                    <li><strong>Tọa độ:</strong> longitude, latitude</li>
+                    <li><strong>Nhà cửa:</strong> housing_median_age, total_rooms, total_bedrooms, households</li>
+                    <li><strong>Dân cư:</strong> population, median_income</li>
+                    <li><strong>Phân loại:</strong> ocean_proximity</li>
+                    <li><strong>Biến mục tiêu:</strong> median_house_value</li>
+                </ul>
+                
+                <strong>Chất lượng dữ liệu:</strong>
+                <p>Thiếu dữ liệu: chỉ có 207 giá trị thiếu ở <code>total_bedrooms</code> (~1%) → dễ xử lý.</p>
+            </div>
+
+            <h3>1.2. Phân tích thống kê mô tả</h3>
+            
+            <h4>Biến số (Numerical Features)</h4>
+            <ul>
+                <li><strong>longitude, latitude:</strong> Tọa độ địa lý California (longitude: -124 đến -114, latitude: 32 đến 42)</li>
+                <li><strong>housing_median_age:</strong> Tuổi trung vị nhà ở trung bình 29 năm (1-52 năm)</li>
+                <li><strong>total_rooms:</strong> Trung bình 2,636 phòng, max >39,000 → có nhiều outliers</li>
+                <li><strong>total_bedrooms:</strong> Trung bình 538 phòng ngủ, có 207 giá trị thiếu</li>
+                <li><strong>population:</strong> Trung bình 1,425 người, max >35,000 → phân phối lệch</li>
+                <li><strong>households:</strong> Trung bình 500 hộ, max >6,000</li>
+                <li><strong>median_income:</strong> Thu nhập trung vị ~3.87 (≈$38,700/năm), quan trọng nhất với giá nhà</li>
+                <li><strong>median_house_value:</strong> Giá nhà trung bình ~$207,000 (14,999 - 500,001), có giới hạn trên</li>
+            </ul>
+
+            <h4>Biến phân loại (Categorical Feature)</h4>
+            <div class="chart-container">
+                <div class="chart-title">Phân phối Ocean Proximity</div>
+                <img src="../images/ocean_proximity.jpg" alt="Ocean Proximity Distribution">
+                <p style="margin-top: 15px; color: #aaa;">
+                    Biến <code>ocean_proximity</code> có 5 nhóm, trong đó <strong>&lt;1H OCEAN</strong> chiếm 44% (9,136 bản ghi). 
+                    Vị trí gần biển ảnh hưởng mạnh đến giá trị bất động sản.
+                </p>
+            </div>
+        </div>
+
+        <!-- Trực quan hóa -->
+        <div class="content-section">
+            <h2>2. Trực quan hóa Dữ liệu</h2>
+            
+            <h3>2.1. Phân tích Outliers (Boxplot)</h3>
+            <div class="chart-container">
+                <div class="chart-title">Biểu đồ Boxplot - Phát hiện Outliers</div>
+                <img src="../images/boxplot.jpg" alt="Boxplot Analysis">
+                <p style="margin-top: 15px; color: #aaa;">
+                    Các biến như <code>total_rooms</code>, <code>total_bedrooms</code>, <code>population</code> và <code>households</code> 
+                    có nhiều outliers (các điểm nằm ngoài whiskers). Điều này yêu cầu xử lý trước khi huấn luyện mô hình.
+                </p>
+            </div>
+
+            <h3>2.2. Phân phối các biến (Histogram)</h3>
+            <div class="chart-container">
+                <div class="chart-title">Biểu đồ Histogram - Phân phối dữ liệu</div>
+                <img src="../images/histogram.jpg" alt="Histogram Distribution">
+                <p style="margin-top: 15px; color: #aaa;">
+                    Hầu hết các biến có phân phối lệch phải (right-skewed). Đặc biệt <code>median_house_value</code> 
+                    có spike ở 500,000 do bị giới hạn trên. <code>median_income</code> có phân phối gần chuẩn nhất.
+                </p>
+            </div>
+        </div>
+
+        <!-- Tiền xử lý -->
+        <div class="content-section">
+            <h2>3. Tiền xử lý Dữ liệu</h2>
+            
+            <h3>3.1. Xử lý Missing Values</h3>
+            <p>Chỉ có <code>total_bedrooms</code> thiếu 207 giá trị (~1%). Do tỷ lệ thấp, ta loại bỏ các bản ghi này.</p>
+            <div class="success-box">
+                <strong><i class="fas fa-check-circle"></i> Kết quả:</strong> Còn lại <strong>20,433 samples</strong> không có missing values.
+            </div>
+
+            <h3>3.2. Loại bỏ Outliers</h3>
+            <p>Sử dụng phương pháp <strong>IQR (Interquartile Range)</strong>:</p>
+            <ul>
+                <li>Tính Q1 (25th percentile) và Q3 (75th percentile)</li>
+                <li>IQR = Q3 - Q1</li>
+                <li>Lower Bound = Q1 - 1.5 × IQR</li>
+                <li>Upper Bound = Q3 + 1.5 × IQR</li>
+                <li>Loại bỏ samples nằm ngoài khoảng này</li>
+            </ul>
+            <div class="success-box">
+                <strong><i class="fas fa-check-circle"></i> Kết quả:</strong> Còn lại <strong>16,724 samples</strong> sau khi loại outliers.
+            </div>
+
+            <h3>3.3. Feature Engineering & Scaling</h3>
+            <div class="info-box">
+                <strong>Pipeline tiền xử lý:</strong>
+                <ol>
+                    <li><strong>Tách dữ liệu:</strong> 80% train, 20% test</li>
+                    <li><strong>Chuẩn hóa target:</strong> Chia <code>median_house_value</code> cho 1000 để mô hình học tốt hơn</li>
+                    <li><strong>Log Transform:</strong> Áp dụng cho <code>total_rooms</code>, <code>total_bedrooms</code>, <code>population</code>, <code>households</code>, <code>median_income</code></li>
+                    <li><strong>Min-Max Scaling:</strong> Chuẩn hóa tất cả numerical features về [0,1]</li>
+                    <li><strong>One-Hot Encoding:</strong> Mã hóa biến <code>ocean_proximity</code></li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Mô hình ML -->
+        <div class="content-section">
+            <h2>4. Xây dựng Mô hình Machine Learning</h2>
+            
+            <h3>4.1. Linear Regression</h3>
+            <p>Mô hình hồi quy tuyến tính cơ bản, tìm mối quan hệ tuyến tính giữa features và target.</p>
+            <div class="info-box">
+                <strong>Cấu hình thử nghiệm:</strong>
+                <ul>
+                    <li>PCA: None, 0.9 (giữ 90% variance)</li>
+                </ul>
+            </div>
+
+            <h3>4.2. Random Forest</h3>
+            <p>Ensemble learning sử dụng nhiều decision trees, giảm overfitting và tăng độ chính xác.</p>
+            <div class="info-box">
+                <strong>Cấu hình thử nghiệm:</strong>
+                <ul>
+                    <li>n_estimators: 100, 200</li>
+                    <li>max_depth: None, 10</li>
+                    <li>PCA: None, 0.9</li>
+                </ul>
+            </div>
+
+            <h3>4.3. Support Vector Regression (SVR)</h3>
+            <p>Sử dụng kernel để học các quan hệ phi tuyến giữa features và target.</p>
+            <div class="info-box">
+                <strong>Cấu hình thử nghiệm:</strong>
+                <ul>
+                    <li>C: 1, 10</li>
+                    <li>kernel: linear, rbf</li>
+                    <li>PCA: None, 0.9</li>
+                </ul>
+            </div>
+
+            <h3>4.4. Multi-Layer Perceptron (MLP)</h3>
+            <p>Mạng neural nhân tạo với nhiều hidden layers, học các mối quan hệ phức tạp.</p>
+            <div class="info-box">
+                <strong>Cấu hình thử nghiệm:</strong>
+                <ul>
+                    <li>hidden_layer_sizes: (32,), (64,), (128,), (256,), (128,64), (256,128), (128,32), (64,32), (256,128,64), (128,64,32), (512,256,128)</li>
+                    <li>activation: relu, tanh, logistic</li>
+                    <li>solver: adam</li>
+                    <li>learning_rate: 0.05</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Kết quả -->
+        <div class="content-section">
+            <h2>5. Đánh giá & So sánh Mô hình</h2>
+            
+            <h3>5.1. Metrics đánh giá</h3>
+            <ul>
+                <li><strong>MAE (Mean Absolute Error):</strong> Sai số tuyệt đối trung bình</li>
+                <li><strong>MSE (Mean Squared Error):</strong> Sai số bình phương trung bình</li>
+                <li><strong>R² Score:</strong> Hệ số xác định (càng gần 1 càng tốt)</li>
+            </ul>
+
+            <h3>5.2. Kết quả Training các mô hình</h3>
+            <div class="model-table">
+                <div style="overflow-x: auto;">
+                    <table class="table table-dark table-striped table-hover">
+                        <thead>
+                            <tr style="background: rgba(0, 243, 255, 0.2);">
+                                <th>#</th>
+                                <th>Model</th>
+                                <th>PCA</th>
+                                <th>MAE</th>
+                                <th>MSE</th>
+                                <th>R² Score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>0</td>
+                                <td>LinearRegression</td>
+                                <td>None</td>
+                                <td>44.073</td>
+                                <td>3403.177</td>
+                                <td>0.602</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>LinearRegression</td>
+                                <td>0.9</td>
+                                <td>58.958</td>
+                                <td>5900.362</td>
+                                <td>0.310</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>RandomForest(n=100, depth=None)</td>
+                                <td>None</td>
+                                <td>29.307</td>
+                                <td>1852.825</td>
+                                <td>0.783</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>RandomForest(n=100, depth=None)</td>
+                                <td>0.9</td>
+                                <td>39.780</td>
+                                <td>3000.939</td>
+                                <td>0.649</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>RandomForest(n=100, depth=10)</td>
+                                <td>None</td>
+                                <td>32.563</td>
+                                <td>2140.322</td>
+                                <td>0.750</td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td>RandomForest(n=100, depth=10)</td>
+                                <td>0.9</td>
+                                <td>43.287</td>
+                                <td>3546.328</td>
+                                <td>0.585</td>
+                            </tr>
+                            <tr style="background: rgba(40, 167, 69, 0.2);">
+                                <td>6</td>
+                                <td><strong>RandomForest(n=200, depth=None)</strong></td>
+                                <td>None</td>
+                                <td><strong style="color: #28a745;">29.132</strong></td>
+                                <td><strong style="color: #28a745;">1829.067</strong></td>
+                                <td><strong style="color: #28a745;">0.786</strong></td>
+                            </tr>
+                            <tr>
+                                <td>7</td>
+                                <td>RandomForest(n=200, depth=None)</td>
+                                <td>0.9</td>
+                                <td>39.709</td>
+                                <td>2986.879</td>
+                                <td>0.651</td>
+                            </tr>
+                            <tr>
+                                <td>8</td>
+                                <td>RandomForest(n=200, depth=10)</td>
+                                <td>None</td>
+                                <td>32.455</td>
+                                <td>2124.808</td>
+                                <td>0.752</td>
+                            </tr>
+                            <tr>
+                                <td>9</td>
+                                <td>RandomForest(n=200, depth=10)</td>
+                                <td>0.9</td>
+                                <td>43.294</td>
+                                <td>3540.987</td>
+                                <td>0.586</td>
+                            </tr>
+                            <tr>
+                                <td>10</td>
+                                <td>SVR(C=1, kernel=linear)</td>
+                                <td>None</td>
+                                <td>46.177</td>
+                                <td>4092.247</td>
+                                <td>0.522</td>
+                            </tr>
+                            <tr>
+                                <td>11</td>
+                                <td>SVR(C=1, kernel=linear)</td>
+                                <td>0.9</td>
+                                <td>57.591</td>
+                                <td>6121.331</td>
+                                <td>0.284</td>
+                            </tr>
+                            <tr>
+                                <td>12</td>
+                                <td>SVR(C=1, kernel=rbf)</td>
+                                <td>None</td>
+                                <td>46.054</td>
+                                <td>4222.518</td>
+                                <td>0.506</td>
+                            </tr>
+                            <tr>
+                                <td>13</td>
+                                <td>SVR(C=1, kernel=rbf)</td>
+                                <td>0.9</td>
+                                <td>55.624</td>
+                                <td>5902.191</td>
+                                <td>0.310</td>
+                            </tr>
+                            <tr>
+                                <td>14</td>
+                                <td>SVR(C=10, kernel=linear)</td>
+                                <td>None</td>
+                                <td>44.009</td>
+                                <td>3650.010</td>
+                                <td>0.573</td>
+                            </tr>
+                            <tr>
+                                <td>15</td>
+                                <td>SVR(C=10, kernel=linear)</td>
+                                <td>0.9</td>
+                                <td>57.567</td>
+                                <td>6113.222</td>
+                                <td>0.285</td>
+                            </tr>
+                            <tr>
+                                <td>16</td>
+                                <td>SVR(C=10, kernel=rbf)</td>
+                                <td>None</td>
+                                <td>40.305</td>
+                                <td>3249.117</td>
+                                <td>0.620</td>
+                            </tr>
+                            <tr>
+                                <td>17</td>
+                                <td>SVR(C=10, kernel=rbf)</td>
+                                <td>0.9</td>
+                                <td>50.971</td>
+                                <td>5131.326</td>
+                                <td>0.400</td>
+                            </tr>
+                            <tr>
+                                <td>18</td>
+                                <td>MLP(hidden=(32,), act=relu, solver=adam, lr=0.05)</td>
+                                <td>None</td>
+                                <td>37.716</td>
+                                <td>2729.588</td>
+                                <td>0.681</td>
+                            </tr>
+                            <tr>
+                                <td>19</td>
+                                <td>MLP(hidden=(64,), act=tanh, solver=adam, lr=0.05)</td>
+                                <td>None</td>
+                                <td>35.737</td>
+                                <td>2406.658</td>
+                                <td>0.719</td>
+                            </tr>
+                            <tr>
+                                <td>20</td>
+                                <td>MLP(hidden=(128,), act=logistic, solver=adam, lr=0.05)</td>
+                                <td>None</td>
+                                <td>32.997</td>
+                                <td>2193.306</td>
+                                <td>0.744</td>
+                            </tr>
+                            <tr>
+                                <td>21</td>
+                                <td>MLP(hidden=(256,), act=relu, solver=adam, lr=0.05)</td>
+                                <td>None</td>
+                                <td>37.419</td>
+                                <td>2730.944</td>
+                                <td>0.681</td>
+                            </tr>
+                            <tr>
+                                <td>22</td>
+                                <td>MLP(hidden=(128, 64), act=tanh, solver=adam, lr=0.05)</td>
+                                <td>None</td>
+                                <td>74.374</td>
+                                <td>8556.153</td>
+                                <td style="color: #dc3545;">-0.000</td>
+                            </tr>
+                            <tr>
+                                <td>23</td>
+                                <td>MLP(hidden=(256, 128), act=logistic, solver=adam, lr=0.05)</td>
+                                <td>None</td>
+                                <td>74.096</td>
+                                <td>8554.609</td>
+                                <td style="color: #dc3545;">-0.000</td>
+                            </tr>
+                            <tr>
+                                <td>24</td>
+                                <td>MLP(hidden=(128, 32), act=relu, solver=adam, lr=0.05)</td>
+                                <td>None</td>
+                                <td>35.458</td>
+                                <td>2454.475</td>
+                                <td>0.713</td>
+                            </tr>
+                            <tr>
+                                <td>25</td>
+                                <td>MLP(hidden=(64, 32), act=tanh, solver=adam, lr=0.05)</td>
+                                <td>None</td>
+                                <td>74.123</td>
+                                <td>8554.391</td>
+                                <td style="color: #dc3545;">-0.000</td>
+                            </tr>
+                            <tr>
+                                <td>26</td>
+                                <td>MLP(hidden=(256, 128, 64), act=logistic, solver=adam, lr=0.05)</td>
+                                <td>None</td>
+                                <td>73.981</td>
+                                <td>8556.612</td>
+                                <td style="color: #dc3545;">-0.000</td>
+                            </tr>
+                            <tr>
+                                <td>27</td>
+                                <td>MLP(hidden=(128, 64, 32), act=relu, solver=adam, lr=0.05)</td>
+                                <td>None</td>
+                                <td>35.882</td>
+                                <td>2458.984</td>
+                                <td>0.713</td>
+                            </tr>
+                            <tr>
+                                <td>28</td>
+                                <td>MLP(hidden=(512, 256, 128), act=tanh, solver=adam, lr=0.05)</td>
+                                <td>None</td>
+                                <td>74.217</td>
+                                <td>8554.286</td>
+                                <td style="color: #dc3545;">-0.000</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="info-box" style="margin-top: 20px;">
+                    <strong>Nhận xét từ bảng kết quả:</strong>
+                    <ul style="margin-bottom: 0;">
+                        <li>Mô hình <strong>RandomForest(n=200, depth=None)</strong> không dùng PCA đạt kết quả tốt nhất (row #6)</li>
+                        <li>PCA giảm performance ở hầu hết các mô hình, cho thấy toàn bộ features đều quan trọng</li>
+                        <li>Một số cấu hình MLP có R² âm, cho thấy mô hình không học được gì (worse than baseline)</li>
+                        <li>SVR với kernel RBF tốt hơn kernel linear nhưng vẫn kém Random Forest</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>5.3. Mô hình tốt nhất</h3>
+            <div class="conclusion">
+                <h4 style="color: var(--neon-blue); text-align: center;">
+                    <i class="fas fa-award"></i> KẾT LUẬN
+                </h4>
+                <p style="font-size: 1.1rem;">
+                    Dựa trên kết quả đánh giá toàn diện, mô hình <strong style="color: #ffc107;">Random Forest 
+                    với 200 cây và không sử dụng PCA</strong> là lựa chọn tốt nhất cho bài toán dự đoán giá nhà California.
+                </p>
+                
+                <div style="background: rgba(255,255,255,0.05); padding: 20px; border-radius: 10px; margin: 20px 0;">
+                    <h5 style="color: #28a745; text-align: center;">Chỉ số hiệu suất</h5>
+                    <div class="row text-center">
+                        <div class="col-md-4">
+                            <div style="font-size: 2rem; color: #00f3ff;">29.13</div>
+                            <div>MAE</div>
+                        </div>
+                        <div class="col-md-4">
+                            <div style="font-size: 2rem; color: #00f3ff;">1829.07</div>
+                            <div>MSE</div>
+                        </div>
+                        <div class="col-md-4">
+                            <div style="font-size: 2rem; color: #00f3ff;">0.786</div>
+                            <div>R² Score</div>
+                        </div>
+                    </div>
+                </div>
+
+                <p><strong>Lý do lựa chọn:</strong></p>
+                <ul>
+                    <li>Đạt <strong>MAE thấp nhất</strong> (29.13) trong tất cả các mô hình</li>
+                    <li>R² score cao (0.786) cho thấy mô hình giải thích được 78.6% phương sai của dữ liệu</li>
+                    <li>Cân bằng tốt giữa độ chính xác và khả năng tổng quát hóa</li>
+                    <li>Không cần giảm chiều dữ liệu (PCA), giữ được đầy đủ thông tin</li>
+                </ul>
+            </div>
+
+            <div class="warning-box">
+                <strong><i class="fas fa-lightbulb"></i> Nhận xét:</strong>
+                <ul style="margin-bottom: 0;">
+                    <li>Linear Regression có performance thấp nhất do không thể học các mối quan hệ phi tuyến</li>
+                    <li>SVR với kernel RBF cho kết quả khá tốt nhưng thời gian train lâu</li>
+                    <li>MLP có tiềm năng nhưng cần nhiều thời gian để tune hyperparameters</li>
+                    <li>Random Forest là lựa chọn cân bằng nhất giữa accuracy, stability và training time</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Kết luận cuối -->
+        <div class="content-section">
+            <h2>6. Tổng kết</h2>
+            <p>Qua bài tập lớn này, chúng ta đã:</p>
+            <ol>
+                <li>Khám phá và phân tích kỹ lưỡng bộ dữ liệu California Housing</li>
+                <li>Xử lý missing values và outliers một cách hợp lý</li>
+                <li>Áp dụng các kỹ thuật feature engineering (log transform, scaling, encoding)</li>
+                <li>Triển khai và so sánh 4 mô hình ML khác nhau</li>
+                <li>Đánh giá hiệu suất và lựa chọn mô hình tối ưu</li>
+            </ol>
+
+            <div class="success-box">
+                <strong><i class="fas fa-rocket"></i> Hướng phát triển:</strong>
+                <ul style="margin-bottom: 0;">
+                    <li>Thử nghiệm thêm các mô hình ensemble như XGBoost, LightGBM</li>
+                    <li>Feature engineering nâng cao (tạo features mới từ location data)</li>
+                    <li>Hyperparameter tuning chi tiết hơn với GridSearchCV/RandomizedSearchCV</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div style="text-align: center; margin: 50px 0 30px 0; padding-top: 30px; border-top: 1px solid #333;">
+            <a href="../index.html" class="btn-back">
+                <i class="fas fa-arrow-left"></i> Quay lại Dashboard
+            </a>
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
