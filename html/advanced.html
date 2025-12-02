@@ -3,27 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chi Tiết Bài Tập - NEON1</title>
+    <title>Báo Cáo: Hidden Markov Model</title>
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <style>
         :root {
             --neon-blue: #00f3ff;
+            --neon-purple: #bc13fe;
             --dark-bg: #0a0a12;
+            --card-bg: rgba(255, 255, 255, 0.05);
             --text-main: #e0e0e0;
+            --text-highlight: #fff;
         }
+
         body {
             background-color: var(--dark-bg);
             color: var(--text-main);
             font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            padding-bottom: 50px;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--text-highlight);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 40px;
+            text-shadow: 0 0 10px var(--neon-blue);
+        }
+
+        h2 {
+            border-left: 5px solid var(--neon-blue);
+            padding-left: 15px;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            color: var(--neon-blue);
+        }
+
+        h3 {
+            color: var(--neon-purple);
+            margin-top: 25px;
+            font-size: 1.3rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
             padding-top: 50px;
         }
-        h1, h2 { font-family: 'Orbitron', sans-serif; }
-        
-        /* Nút quay lại */
+
+        .content-box {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 30px;
+            border: 1px solid #333;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            margin-bottom: 30px;
+        }
+
+        /* Định dạng bảng và công thức */
+        .math-block {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 3px solid var(--neon-purple);
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        ul li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 10px;
+        }
+
+        ul li:before {
+            content: "\f054"; /* FontAwesome chevron-right */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--neon-blue);
+            font-size: 0.8em;
+            top: 4px;
+        }
+
+        .result-highlight {
+            font-size: 2rem;
+            color: var(--neon-blue);
+            font-weight: bold;
+            text-align: center;
+            margin: 20px 0;
+            text-shadow: 0 0 15px rgba(0, 243, 255, 0.5);
+        }
+
         .btn-back {
+            display: inline-block;
+            margin-bottom: 20px;
             color: var(--neon-blue);
             border: 1px solid var(--neon-blue);
             text-decoration: none;
@@ -31,37 +121,173 @@
             border-radius: 30px;
             transition: 0.3s;
         }
+
         .btn-back:hover {
             background: var(--neon-blue);
             color: #000;
             box-shadow: 0 0 15px var(--neon-blue);
         }
         
-        .content-box {
-            background: rgba(255,255,255,0.05);
-            border-radius: 15px;
-            padding: 30px;
-            margin-top: 30px;
-            border: 1px solid #333;
+        strong {
+            color: var(--neon-blue);
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <a href="../index.html" class="btn-back"><i class="fas fa-arrow-left"></i> Quay lại Dashboard</a>
+        <a href="#" class="btn-back" onclick="history.back()"><i class="fas fa-arrow-left"></i> Quay lại Dashboard</a>
 
-        <div class="content-box text-center">
-            <h1 class="text-warning mb-4">🚧 Đang Xây Dựng 🚧</h1>
-            <h2 class="mb-3">Chi Tiết Bài Tập Lớn</h2>
-            <p class="lead">Nội dung báo cáo chi tiết và phân tích dữ liệu đang được cập nhật...</p>
+        <h1>Báo Cáo: Hidden Markov Model (HMM)</h1>
+        
+        <div class="content-box">
+            <p class="lead text-center">
+                Môn học: Machine Learning <br>
+                Chủ đề: Lý thuyết Mô hình Markov Ẩn & Ứng dụng Gán nhãn từ loại (POS Tagging)
+            </p>
+        </div>
+
+        <div class="content-box">
+            <h2>1. Cơ Sở Lý Thuyết</h2>
             
-            <hr class="my-4 border-secondary">
+            <h3>1.1. Tổng quan về HMM</h3>
+            <p>
+                Mô hình Markov ẩn (HMM) là một mô hình thống kê trong đó hệ thống được mô hình hóa như một quá trình Markov với các trạng thái không quan sát được (<strong>Hidden States</strong>). Tuy nhiên, các trạng thái này tạo ra các quan sát (<strong>Observations</strong>) mà ta có thể đo lường được.
+            </p>
+            <p>Một hệ thống HMM được xác định đầy đủ bởi bộ tham số \(\lambda = (A, B, \pi)\):</p>
             
-            <p>Trong lúc chờ đợi, bạn có thể xem code trực tiếp tại:</p>
-            <a href="#" class="btn btn-outline-light"><i class="fab fa-google"></i> Mở Google Colab</a>
+            <ul>
+                <li><strong>Tập trạng thái ẩn \(S\):</strong> \(S = \{S_1, S_2, ..., S_N\}\). (Ví dụ: Các loại từ như Danh từ, Động từ...)</li>
+                <li><strong>Tập quan sát \(O\):</strong> \(O = \{v_1, v_2, ..., v_M\}\). (Ví dụ: Các từ vựng trong câu)</li>
+                <li><strong>Ma trận chuyển trạng thái \(A\) (Transition Probability):</strong> Xác suất chuyển từ trạng thái này sang trạng thái khác.
+                    <div class="math-block">
+                        $$A_{ij} = P(q_{t+1} = S_j | q_t = S_i)$$
+                    </div>
+                </li>
+                <li><strong>Ma trận phát xạ \(B\) (Emission Probability):</strong> Xác suất một trạng thái sinh ra một quan sát cụ thể.
+                    <div class="math-block">
+                        $$B_{j}(k) = P(O_t = v_k | q_t = S_j)$$
+                    </div>
+                </li>
+                <li><strong>Vector khởi tạo \(\pi\) (Initial Probability):</strong> Xác suất hệ thống bắt đầu ở một trạng thái cụ thể.
+                    <div class="math-block">
+                        $$\pi_i = P(q_1 = S_i)$$
+                    </div>
+                </li>
+            </ul>
+
+            <h3>1.2. Ba bài toán cốt lõi của HMM</h3>
+            <div class="row mt-4">
+                <div class="col-md-4">
+                    <div class="p-3 border border-secondary rounded h-100">
+                        <h4 class="text-info"><i class="fas fa-search"></i> 1. Evaluation</h4>
+                        <p><strong>Mục tiêu:</strong> Tính xác suất xảy ra của một chuỗi quan sát \(P(O|\lambda)\).</p>
+                        <p><strong>Thuật toán:</strong> Forward Algorithm.</p>
+                        <p><small>Dùng quy hoạch động để tính tổng xác suất của tất cả các đường đi có thể tạo ra chuỗi quan sát.</small></p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="p-3 border border-secondary rounded h-100">
+                        <h4 class="text-warning"><i class="fas fa-key"></i> 2. Decoding</h4>
+                        <p><strong>Mục tiêu:</strong> Tìm chuỗi trạng thái ẩn tối ưu nhất khớp với chuỗi quan sát.</p>
+                        <p><strong>Thuật toán:</strong> Viterbi Algorithm.</p>
+                        <p><small>Dùng quy hoạch động để tìm đường đi có xác suất tích lũy lớn nhất (Max Path).</small></p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="p-3 border border-secondary rounded h-100">
+                        <h4 class="text-success"><i class="fas fa-brain"></i> 3. Learning</h4>
+                        <p><strong>Mục tiêu:</strong> Tối ưu hóa tham số \((A, B, \pi)\) từ dữ liệu quan sát.</p>
+                        <p><strong>Thuật toán:</strong> Baum-Welch (EM).</p>
+                        <p><small>Lặp lại quá trình Expectation (tính kỳ vọng) và Maximization (cập nhật tham số) để cực đại hóa khả năng của mô hình.</small></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-box">
+            <h2>2. Ứng Dụng Thực Nghiệm</h2>
+            <p>
+                Nhóm thực hiện áp dụng mô hình HMM vào bài toán <strong>Gán nhãn từ loại (Part-of-Speech Tagging)</strong>. Đây là bước tiền xử lý quan trọng trong Xử lý ngôn ngữ tự nhiên (NLP).
+            </p>
+
+            <h3>2.1. Dữ liệu thực nghiệm</h3>
+            <ul>
+                <li><strong>Dataset:</strong> Penn Treebank (có sẵn trong thư viện NLTK). Đây là tập hợp các bài báo từ Wall Street Journal đã được gán nhãn chuẩn xác.</li>
+                <li><strong>Tagset (Bộ nhãn):</strong> Sử dụng <code>universal_tagset</code> gồm 12 nhãn cơ bản (NOUN, VERB, ADJ, PRON, DET, v.v...) để đơn giản hóa quá trình đánh giá.</li>
+                <li><strong>Phương pháp:</strong> Học có giám sát (Supervised Learning). HMM tính toán ma trận \(A\) và \(B\) trực tiếp dựa trên tần suất xuất hiện của các cặp (từ, nhãn) trong tập huấn luyện.</li>
+            </ul>
+            <h3>2.2. Phân Tích Khám Phá Dữ Liệu (EDA)</h3>
+            <p>Trước khi đưa vào mô hình HMM, nhóm thực hiện phân tích thống kê trên tập dữ liệu Penn Treebank để hiểu rõ đặc điểm phân bố của các nhãn từ loại.</p>
+
+            <h4>a. Thống kê tổng quan</h4>
+            <ul>
+                <li><strong>Tổng số câu:</strong> 3,914 câu.</li>
+                <li><strong>Bộ nhãn (Tagset):</strong> Universal (12 nhãn).</li>
+                <li><strong>Đặc điểm mẫu:</strong> Dữ liệu bao gồm cả các ký tự đặc biệt, dấu câu và các thẻ cú pháp rỗng (trace tags) đặc trưng của Treebank.</li>
+            </ul>
+
+            <h4>b. Phân bố các nhãn từ loại (Label Distribution)</h4>
+            <p>Biểu đồ dưới đây thể hiện tần suất xuất hiện của 12 nhãn từ loại trong toàn bộ tập dữ liệu:</p>
+            
+            <div class="text-center my-4">
+                <img src="../images/pos_tag_distribution.png" alt="Biểu đồ phân bố POS Tags" class="img-fluid rounded border border-secondary" style="max-height: 400px;">
+                <p class="text-muted mt-2"><em>Hình 1: Tần suất xuất hiện của các nhãn POS trong Penn Treebank</em></p>
+            </div>
+
+            <p><strong>Nhận xét từ biểu đồ:</strong></p>
+            <ul>
+                <li><strong>Sự mất cân bằng dữ liệu (Imbalanced Data):</strong>
+                    <ul>
+                        <li><code>NOUN</code> (Danh từ) chiếm tỷ trọng áp đảo nhất (gần 30,000 từ). Điều này phản ánh đúng đặc thù tiếng Anh, nơi danh từ đóng vai trò chủ ngữ, tân ngữ và bổ ngữ.</li>
+                        <li><code>VERB</code> (Động từ) và dấu câu (<code>.</code>) đứng ở nhóm phổ biến thứ hai (~12,000 - 13,000 từ).</li>
+                        <li>Các nhãn như <code>CONJ</code> (Liên từ) và <code>PRON</code> (Đại từ) xuất hiện ít nhất.</li>
+                    </ul>
+                </li>
+                <li><strong>Ý nghĩa đối với mô hình:</strong> Với sự chênh lệch này, nếu mô hình HMM gặp một từ mới (unknown word), xác suất dự đoán từ đó là <code>NOUN</code> sẽ cao nhất do ảnh hưởng của xác suất tiên nghiệm (Prior Probability).</li>
+            </ul>
+
+            <h3>2.3. Kết quả đánh giá</h3>
+            <p>Sau khi huấn luyện mô hình trên tập Train (80%) và kiểm thử trên tập Test (20%), kết quả thu được như sau:</p>
+            
+            <div class="result-highlight">
+                Độ chính xác (Accuracy): 59.84%
+            </div>
+
+            <h3>2.4. Phân tích kết quả</h3>
+            <p>Mặc dù HMM là một mô hình mạnh mẽ cho dữ liệu chuỗi, nhưng kết quả ~60% trên tập dữ liệu này phản ánh những thách thức thực tế:</p>
+            
+            <div class="accordion accordion-flush bg-transparent" id="accordionAnalysis">
+                <div class="accordion-item bg-transparent text-light border-secondary">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed bg-transparent text-info" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+                            1. Vấn đề kích thước dữ liệu (Small Dataset)
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show">
+                        <div class="accordion-body">
+                            Tập dữ liệu mẫu của NLTK chỉ chứa khoảng <strong>3,914 câu</strong>. Đây là con số rất nhỏ so với sự đa dạng của ngôn ngữ tự nhiên. Việc thiếu dữ liệu khiến ma trận xác suất chuyển trạng thái (Transition Matrix) không bao quát được hết các cấu trúc ngữ pháp phức tạp.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item bg-transparent text-light border-secondary">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed bg-transparent text-warning" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
+                            2. Vấn đề Từ chưa biết (Unknown Words / OOV)
+                        </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse show">
+                        <div class="accordion-body">
+                            Đây là nguyên nhân chính gây sụt giảm độ chính xác. 
+                            <br><br>
+                            Trong quá trình kiểm thử, mô hình gặp các từ chưa từng xuất hiện trong tập huấn luyện (ví dụ: tên riêng, từ mới). Lúc này, xác suất phát xạ \(P(\text{Word} | \text{Tag}) = 0\) cho mọi nhãn. HMM cơ bản không có cơ chế xử lý tốt trường hợp này (thường chỉ đoán mặc định là Danh từ), dẫn đến sai số lớn.
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
