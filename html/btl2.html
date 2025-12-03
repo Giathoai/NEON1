@@ -93,6 +93,18 @@
         .comparison-table th {
             background: rgba(0, 243, 255, 0.1);
         }
+        /* Highlight model names used throughout the report */
+        .model-name {
+            color: var(--neon-blue);
+            font-weight: 700;
+            text-shadow: 0 0 8px rgba(0,243,255,0.25);
+        }
+
+        /* Emphasize important subsection headings (used for 5.2 and 5.3) */
+        .section-emph {
+            color: #ffd166; /* neon-accent yellow */
+            text-shadow: 0 0 6px rgba(255,209,102,0.15);
+        }
     </style>
 </head>
 <body>
@@ -445,7 +457,7 @@
                 </div>
                 
                 <div class="subsection">
-                    <h3>5.2: Huấn luyện và Đánh giá Mô hình</h3>
+                    <h3 class="section-emph">5.2: Huấn luyện và Đánh giá Mô hình</h3>
                     <p>Huấn luyện trên tập train, dự đoán trên test. Tất cả mô hình đạt accuracy cao (trên 95%), cho thấy dữ liệu dễ phân loại.</p>
                     
                     <!-- Chỗ chèn output -->
@@ -456,7 +468,7 @@
                         <!-- BoW_NB -->
                         <div class="card mb-3 border-secondary">
                             <div class="card-header bg-dark d-flex justify-content-between align-items-center">
-                                <span><i class="fas fa-cube me-2 text-info"></i>BoW + Naive Bayes</span>
+                                <span><i class="fas fa-cube me-2 text-info"></i> <span class="model-name">BoW + Naive Bayes</span></span>
                                 <span class="badge bg-success">Accuracy: 96.89%</span>
                             </div>
                             <div class="card-body">
@@ -491,7 +503,7 @@
                         <!-- BoW_LR -->
                         <div class="card mb-3 border-secondary">
                             <div class="card-header bg-dark d-flex justify-content-between align-items-center">
-                                <span><i class="fas fa-cube me-2 text-info"></i>BoW + Logistic Regression</span>
+                                <span><i class="fas fa-cube me-2 text-info"></i> <span class="model-name">BoW + Logistic Regression</span></span>
                                 <span class="badge bg-success">Accuracy: 96.44%</span>
                             </div>
                             <div class="card-body">
@@ -526,7 +538,7 @@
                         <!-- BoW_SVM -->
                         <div class="card mb-3 border-secondary">
                             <div class="card-header bg-dark d-flex justify-content-between align-items-center">
-                                <span><i class="fas fa-cube me-2 text-info"></i>BoW + SVM</span>
+                                <span><i class="fas fa-cube me-2 text-info"></i> <span class="model-name">BoW + SVM</span></span>
                                 <span class="badge bg-success">Accuracy: 97.33%</span>
                             </div>
                             <div class="card-body">
@@ -561,7 +573,7 @@
                         <!-- TFIDF_NB -->
                         <div class="card mb-3 border-secondary">
                             <div class="card-header bg-dark d-flex justify-content-between align-items-center">
-                                <span><i class="fas fa-cube me-2 text-info"></i>TF-IDF + Naive Bayes</span>
+                                <span><i class="fas fa-cube me-2 text-info"></i> <span class="model-name">TF-IDF + Naive Bayes</span></span>
                                 <span class="badge bg-success">Accuracy: 96.00%</span>
                             </div>
                             <div class="card-body">
@@ -596,7 +608,7 @@
                         <!-- TFIDF_LR -->
                         <div class="card mb-3 border-secondary">
                             <div class="card-header bg-dark d-flex justify-content-between align-items-center">
-                                <span><i class="fas fa-cube me-2 text-info"></i>TF-IDF + Logistic Regression</span>
+                                <span><i class="fas fa-cube me-2 text-info"></i> <span class="model-name">TF-IDF + Logistic Regression</span></span>
                                 <span class="badge bg-success">Accuracy: 97.78%</span>
                             </div>
                             <div class="card-body">
@@ -631,7 +643,7 @@
                         <!-- TFIDF_SVM -->
                         <div class="card mb-3 border-secondary">
                             <div class="card-header bg-dark d-flex justify-content-between align-items-center">
-                                <span><i class="fas fa-cube me-2 text-info"></i>TF-IDF + SVM</span>
+                                <span><i class="fas fa-cube me-2 text-info"></i> <span class="model-name">TF-IDF + SVM</span></span>
                                 <span class="badge bg-success">Accuracy: 97.78%</span>
                             </div>
                             <div class="card-body">
@@ -666,7 +678,7 @@
                 </div>
                 
                 <div class="subsection">
-                    <h3>5.3: Báo cáo và So sánh</h3>
+                    <h3 class="section-emph">5.3: Báo cáo và So sánh</h3>
                     <p>TF-IDF với Logistic Regression hoặc SVM đạt cao nhất: accuracy 97.78%, F1-macro 0.977. BoW kém hơn một chút (SVM: 97.33%). TF-IDF vượt trội nhờ cân bằng tần suất từ.</p>
                     
                     <div class="comparison-table">
@@ -680,12 +692,12 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr><td>BoW</td><td>Naive Bayes</td><td>96.86</td><td>0.968</td></tr>
-                                <tr><td>BoW</td><td>Logistic Regression</td><td>97.08</td><td>0.970</td></tr>
-                                <tr><td>BoW</td><td>SVM</td><td>97.33</td><td>0.973</td></tr>
-                                <tr><td>TF-IDF</td><td>Naive Bayes</td><td>96.86</td><td>0.968</td></tr>
-                                <tr><td>TF-IDF</td><td>Logistic Regression</td><td>97.78</td><td>0.977</td></tr>
-                                <tr><td>TF-IDF</td><td>SVM</td><td>97.78</td><td>0.977</td></tr>
+                                <tr><td>BoW</td><td><span class="model-name">Naive Bayes</span></td><td>96.86</td><td>0.968</td></tr>
+                                <tr><td>BoW</td><td><span class="model-name">Logistic Regression</span></td><td>97.08</td><td>0.970</td></tr>
+                                <tr><td>BoW</td><td><span class="model-name">SVM</span></td><td>97.33</td><td>0.973</td></tr>
+                                <tr><td>TF-IDF</td><td><span class="model-name">Naive Bayes</span></td><td>96.86</td><td>0.968</td></tr>
+                                <tr><td>TF-IDF</td><td><span class="model-name">Logistic Regression</span></td><td>97.78</td><td>0.977</td></tr>
+                                <tr><td>TF-IDF</td><td><span class="model-name">SVM</span></td><td>97.78</td><td>0.977</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -750,7 +762,7 @@
                         <!-- GloVe_LR -->
                         <div class="card mb-3 border-secondary">
                             <div class="card-header bg-dark d-flex justify-content-between align-items-center">
-                                <span><i class="fas fa-robot me-2 text-info"></i>GloVe + Logistic Regression</span>
+                                <span><i class="fas fa-robot me-2 text-info"></i> <span class="model-name">GloVe + Logistic Regression</span></span>
                                 <span class="badge bg-success">Accuracy: 96.89%</span>
                             </div>
                             <div class="card-body">
@@ -785,7 +797,7 @@
                         <!-- GloVe_SVM -->
                         <div class="card mb-3 border-secondary">
                             <div class="card-header bg-dark d-flex justify-content-between align-items-center">
-                                <span><i class="fas fa-robot me-2 text-info"></i>GloVe + SVM</span>
+                                <span><i class="fas fa-robot me-2 text-info"></i> <span class="model-name">GloVe + SVM</span></span>
                                 <span class="badge bg-success">Accuracy: 97.78%</span>
                             </div>
                             <div class="card-body">
@@ -824,7 +836,7 @@
                         <!-- DistilBERT_LR -->
                         <div class="card mb-3 border-secondary">
                             <div class="card-header bg-dark d-flex justify-content-between align-items-center">
-                                <span><i class="fas fa-brain me-2 text-info"></i>DistilBERT + Logistic Regression</span>
+                                <span><i class="fas fa-brain me-2 text-info"></i> <span class="model-name">DistilBERT + Logistic Regression</span></span>
                                 <span class="badge bg-success">Accuracy: 97.78%</span>
                             </div>
                             <div class="card-body">
@@ -859,7 +871,7 @@
                         <!-- DistilBERT_SVM -->
                         <div class="card mb-3 border-secondary">
                             <div class="card-header bg-dark d-flex justify-content-between align-items-center">
-                                <span><i class="fas fa-brain me-2 text-info"></i>DistilBERT + SVM</span>
+                                <span><i class="fas fa-brain me-2 text-info"></i> <span class="model-name">DistilBERT + SVM</span></span>
                                 <span class="badge bg-success">Accuracy: 97.78%</span>
                             </div>
                             <div class="card-body">
@@ -908,10 +920,10 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr><td>GloVe</td><td>Logistic Regression</td><td>97.33</td><td>0.973</td></tr>
-                                <tr><td>GloVe</td><td>SVM</td><td>97.78</td><td>0.977</td></tr>
-                                <tr><td>DistilBERT</td><td>Logistic Regression</td><td>97.78</td><td>0.977</td></tr>
-                                <tr><td>DistilBERT</td><td>SVM</td><td>97.78</td><td>0.977</td></tr>
+                                <tr><td>GloVe</td><td><span class="model-name">Logistic Regression</span></td><td>97.33</td><td>0.973</td></tr>
+                                <tr><td>GloVe</td><td><span class="model-name">SVM</span></td><td>97.78</td><td>0.977</td></tr>
+                                <tr><td>DistilBERT</td><td><span class="model-name">Logistic Regression</span></td><td>97.78</td><td>0.977</td></tr>
+                                <tr><td>DistilBERT</td><td><span class="model-name">SVM</span></td><td>97.78</td><td>0.977</td></tr>
                             </tbody>
                         </table>
                     </div>
