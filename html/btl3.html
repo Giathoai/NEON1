@@ -87,45 +87,40 @@
             font-family: 'Orbitron', sans-serif;
         }
 
-        /* --- TABLES --- */
-        .table-custom {
+        /* --- SCIENTIFIC TABLE STYLES --- */
+        .table-scientific {
             --bs-table-bg: transparent;
             --bs-table-color: #fff;
             border-color: rgba(255,255,255,0.15);
+            width: 100%;
         }
-        .table-custom th { 
-            color: var(--neon-green); 
-            font-weight: normal; 
+        .table-scientific th { 
+            background-color: rgba(0, 243, 255, 0.1);
+            color: var(--neon-blue); 
+            font-weight: bold; 
             font-family: 'Orbitron'; 
-            font-size: 1em; 
-            border-bottom-width: 1px;
-        }
-        .table-custom td {
+            font-size: 0.95rem; 
+            text-transform: uppercase;
+            border-bottom: 2px solid var(--neon-blue);
+            padding: 15px;
             vertical-align: middle;
         }
-
-        /* --- TABS NAVIGATION --- */
-        .nav-pills .nav-link {
-            color: rgba(255,255,255,0.6);
-            border: 1px solid rgba(255,255,255,0.1);
-            margin: 0 6px;
-            border-radius: 50px;
-            padding: 10px 25px;
-            transition: all 0.3s ease;
-            font-family: 'Orbitron', sans-serif;
-            letter-spacing: 1px;
-            font-size: 0.9rem;
+        .table-scientific td {
+            vertical-align: middle;
+            padding: 12px 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
         }
-        .nav-pills .nav-link:hover {
+        .table-scientific tr:last-child td { border-bottom: none; }
+        
+        /* Highlight best row */
+        .row-highlight {
+            background: rgba(0, 255, 157, 0.1) !important;
+            box-shadow: inset 3px 0 0 var(--neon-green);
+        }
+        .text-feature {
+            font-weight: bold;
             color: #fff;
-            border-color: var(--neon-blue);
-            background: rgba(255,255,255,0.05);
-        }
-        .nav-pills .nav-link.active {
-            background-color: rgba(0, 243, 255, 0.1);
-            color: var(--neon-blue);
-            border-color: var(--neon-blue);
-            box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
+            font-size: 1.1em;
         }
 
         /* --- WINNER BADGE --- */
@@ -298,7 +293,7 @@
                 <div class="col-lg-8">
                     <div class="winner-box">
                         <h2 class="text-neon-green brand-font mb-2">BEST OVERALL MODEL</h2>
-                        <h4 class="text-white mb-3">SVM + ResNet50 Features</h4>
+                        <h4 class="text-white mb-3">ResNet50 + SVM</h4>
                         <div class="display-2 fw-bold text-white mb-2" style="text-shadow: 0 0 20px rgba(255,255,255,0.3);">95.22%</div>
                         <p class="text-white opacity-75 text-uppercase fw-bold" style="letter-spacing: 2px;">Test Accuracy</p>
                         
@@ -325,137 +320,94 @@
                 </div>
             </div>
 
-            <ul class="nav nav-pills justify-content-center mb-4" id="pills-tab" role="tablist">
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="pills-resnet-tab" data-bs-toggle="pill" data-bs-target="#pills-resnet" type="button" role="tab">ResNet50</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="pills-efficient-tab" data-bs-toggle="pill" data-bs-target="#pills-efficient" type="button" role="tab">EfficientNet</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="pills-vgg-tab" data-bs-toggle="pill" data-bs-target="#pills-vgg" type="button" role="tab">VGG16</button>
-                </li>
-            </ul>
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="glass-card p-0 overflow-hidden">
+                        <div class="p-3 bg-white bg-opacity-5 border-bottom border-secondary border-opacity-25">
+                            <h5 class="m-0 text-center text-neon-purple brand-font">Bảng Tổng Hợp Kết Quả Chi Tiết</h5>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-scientific table-hover mb-0 text-center">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 25%;">Feature Extractor</th>
+                                        <th style="width: 30%;">Classifier (Mô hình)</th>
+                                        <th style="width: 15%;">CV Score</th>
+                                        <th style="width: 15%;">Test Accuracy</th>
+                                        <th style="width: 15%;">Đánh giá</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="row-highlight">
+                                        <td rowspan="3" class="text-feature border-end border-secondary border-opacity-25 text-neon-green">
+                                            ResNet50
+                                        </td>
+                                        <td class="text-start ps-4 fw-bold text-neon-blue">Support Vector Machine (SVM)</td>
+                                        <td>93.49%</td>
+                                        <td class="fw-bold fs-5 text-white">95.22%</td>
+                                        <td><span class="badge bg-success">Best Model</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-start ps-4">Random Forest</td>
+                                        <td class="text-secondary">-</td>
+                                        <td class="text-white">92.13%</td>
+                                        <td><span class="badge bg-primary">Tốt</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-start ps-4">Logistic Regression</td>
+                                        <td class="text-secondary">-</td>
+                                        <td class="text-white">92.02%</td>
+                                        <td><span class="badge bg-primary">Tốt</span></td>
+                                    </tr>
 
-            <div class="tab-content" id="pills-tabContent">
-                
-                <div class="tab-pane fade show active" id="pills-resnet" role="tabpanel">
-                    <div class="row justify-content-center">
-                        <div class="col-lg-10">
-                            <div class="glass-card p-0 overflow-hidden">
-                                <table class="table table-custom table-hover mb-0 align-middle text-center">
-                                    <thead class="bg-white bg-opacity-10">
-                                        <tr>
-                                            <th class="py-3 text-start ps-5">Mô Hình (Classifier)</th>
-                                            <th class="py-3">CV Score</th>
-                                            <th class="py-3">Test Accuracy</th>
-                                            <th class="py-3">Đánh giá</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td class="text-start ps-5 fw-bold text-neon-blue">Support Vector Machine (SVM)</td>
-                                            <td>93.49%</td>
-                                            <td class="fw-bold fs-5 text-white">95.22%</td>
-                                            <td><span class="badge bg-success">Xuất sắc</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-start ps-5">Random Forest</td>
-                                            <td class="text-secondary">-</td>
-                                            <td class="text-white">92.13%</td>
-                                            <td><span class="badge bg-primary">Tốt</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-start ps-5">Logistic Regression</td>
-                                            <td class="text-secondary">-</td>
-                                            <td class="text-white">92.02%</td>
-                                            <td><span class="badge bg-primary">Tốt</span></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                                    <tr>
+                                        <td rowspan="3" class="text-feature border-end border-secondary border-opacity-25 text-neon-blue">
+                                            EfficientNet
+                                        </td>
+                                        <td class="text-start ps-4 fw-bold text-info">Support Vector Machine (SVM)</td>
+                                        <td>94.26%</td>
+                                        <td class="fw-bold text-white">94.64%</td>
+                                        <td><span class="badge bg-info text-dark">Rất tốt</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-start ps-4">Logistic Regression</td>
+                                        <td>91.43%</td>
+                                        <td class="text-white">92.92%</td>
+                                        <td><span class="badge bg-primary">Tốt</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-start ps-4">Random Forest</td>
+                                        <td>87.90%</td>
+                                        <td class="text-white">88.46%</td>
+                                        <td><span class="badge bg-warning text-dark">Khá</span></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td rowspan="3" class="text-feature border-end border-secondary border-opacity-25 text-neon-purple">
+                                            VGG16
+                                        </td>
+                                        <td class="text-start ps-4">Logistic Regression</td>
+                                        <td>91.21%</td>
+                                        <td class="fw-bold text-white">92.23%</td>
+                                        <td><span class="badge bg-primary">Tốt</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-start ps-4">Support Vector Machine (SVM)</td>
+                                        <td>91.37%</td>
+                                        <td class="text-white">91.30%</td>
+                                        <td><span class="badge bg-primary">Tốt</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-start ps-4">Random Forest</td>
+                                        <td>83.45%</td>
+                                        <td class="text-white">85.19%</td>
+                                        <td><span class="badge bg-secondary">Trung bình</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
-
-                <div class="tab-pane fade" id="pills-efficient" role="tabpanel">
-                    <div class="row justify-content-center">
-                        <div class="col-lg-10">
-                            <div class="glass-card p-0 overflow-hidden">
-                                <table class="table table-custom table-hover mb-0 align-middle text-center">
-                                    <thead class="bg-white bg-opacity-10">
-                                        <tr>
-                                            <th class="py-3 text-start ps-5">Mô Hình (Classifier)</th>
-                                            <th class="py-3">CV Score</th>
-                                            <th class="py-3">Test Accuracy</th>
-                                            <th class="py-3">Đánh giá</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td class="text-start ps-5 fw-bold text-neon-blue">Support Vector Machine (SVM)</td>
-                                            <td>94.26%</td>
-                                            <td class="fw-bold fs-5 text-white">94.64%</td>
-                                            <td><span class="badge bg-success">Rất tốt</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-start ps-5">Logistic Regression</td>
-                                            <td>91.43%</td>
-                                            <td class="text-white">92.92%</td>
-                                            <td><span class="badge bg-primary">Tốt</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-start ps-5">Random Forest</td>
-                                            <td>87.90%</td>
-                                            <td class="text-white">88.46%</td>
-                                            <td><span class="badge bg-warning text-dark">Khá</span></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="tab-pane fade" id="pills-vgg" role="tabpanel">
-                    <div class="row justify-content-center">
-                        <div class="col-lg-10">
-                            <div class="glass-card p-0 overflow-hidden">
-                                <table class="table table-custom table-hover mb-0 align-middle text-center">
-                                    <thead class="bg-white bg-opacity-10">
-                                        <tr>
-                                            <th class="py-3 text-start ps-5">Mô Hình (Classifier)</th>
-                                            <th class="py-3">CV Score</th>
-                                            <th class="py-3">Test Accuracy</th>
-                                            <th class="py-3">Đánh giá</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td class="text-start ps-5 fw-bold text-neon-blue">Logistic Regression</td>
-                                            <td>91.21%</td>
-                                            <td class="fw-bold fs-5 text-white">92.23%</td>
-                                            <td><span class="badge bg-primary">Tốt</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-start ps-5">Support Vector Machine (SVM)</td>
-                                            <td>91.37%</td>
-                                            <td class="text-white">91.30%</td>
-                                            <td><span class="badge bg-primary">Tốt</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-start ps-5">Random Forest</td>
-                                            <td>83.45%</td>
-                                            <td class="text-white">85.19%</td>
-                                            <td><span class="badge bg-secondary">Trung bình</span></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
             </div>
             
         </div>
